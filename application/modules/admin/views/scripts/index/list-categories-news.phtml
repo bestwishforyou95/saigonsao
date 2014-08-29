@@ -1,0 +1,125 @@
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li class="current"><a href="#">Quản lý danh mục tin tức</a></li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Quản lý danh mục tin tức</span>
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-categories-news")?>" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>
+<div class="div_box">
+    <table id="GridView_TblMain" class="GridView_TblMain" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+            <tr class="GridView_TrTitle">
+                <th class="center" style="width: 40px;">STT</th>
+                <th>Tên danh mục</th>
+                <th class="center" style="width: 150px;">Danh mục cha</th>
+                <th class="center" style="width: 150px;">Ngày tạo</th>
+                <th class="center" style="width: 80px;">Trạng thái</th>
+                <th class="center" style="width: 90px;">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?=$this->notify?>
+            <?foreach($this->datas as $key=>$row){?>
+                <tr>
+                    <td class="center"><?=$key+1?></td>
+                    <td><?=$row->name?></td>
+                    <td><?=$row->parent_id?></td>
+                    <td class="center"><?=date("d/m/Y - H:i:s",strtotime($row->date_create))?></td>
+                    <td class="center">
+                    <a class="status" rel="<?=$row->idcategory?>"><span class="icon icon-color <?=$row->status?"icon-close":"icon-check";?>"></span></a>
+                    </td>
+                    <td class="center">
+                        <a href="<?=$this->baseUrl("/admin/index/edit-categories-news/id/$row->idcategory")?>"><i class="icon-edit"></i>Sửa</a> | 
+                        <a href="#" rel="<?=$row->idcategory?>" class="del"><i class="icon-trash"></i>Xóa</a>
+                    </td>
+                </tr>
+				<?php 
+					$model = $this->model;
+					$rows = $model->fetchAll($model->getData($row->idcategory));
+					if($rows->count() > 0)
+						getChildrent($rows,0,$this->baseUrl(""));
+				?>
+            <?}?>                
+        </tbody>
+    </table>
+    <?=$this->paginationControl($this->datas,"Sliding","pagination/pagination-control.phtml")?>
+</div>
+<script>
+    $(function(){
+       $(".status").click(function(){
+        var id = $(this).attr("rel");
+        $.get("<?=$this->baseUrl("")?>/admin/index/status-categories-news",{idcate:id},function(){},"json");
+       }); 
+       $(".del").click(function(){
+            var id = $(this).attr("rel");
+            if(confirm("Bạn muốn xóa danh mục này?")){
+                $(this).parent("td").parent("tr").remove();
+                $.get("<?=$this->baseUrl("")?>/admin/index/del-categories-news",{idcate:id},function(){},"json");
+            }            
+       });
+    });
+</script>
+<div class="div_box">
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-categories-news")?>" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>
+<?php 
+	function getChildrent($rs, $level = 0, $url = "/"){
+		$level ++;
+		foreach($rs as $key=>$row){
+			?>
+				<tr>
+                    <td class="center"><?=$key+1?></td>
+                    <td><span style="color:red;font-weight:bolder;"><?php for($i=0;$i<$level;$i++) echo "&laquo;----&raquo;";?></span><?=$row->name?></td>
+                    <td><?=$row->parent_id?></td>
+                    <td class="center"><?=date("d/m/Y - H:i:s",strtotime($row->date_create))?></td>
+                    <td class="center">
+                    <a class="status" rel="<?=$row->idcategory?>"><span class="icon icon-color <?=$row->status?"icon-close":"icon-check";?>"></span></a>
+                    </td>
+                    <td class="center">
+                        <a href="<?=$url?>/admin/index/edit-categories-news/id/<?= $row->idcategory;?>"><i class="icon-edit"></i>Sửa</a> | 
+                        <a href="#" rel="<?=$row->idcategory?>" class="del"><i class="icon-trash"></i>Xóa</a>
+                    </td>
+                </tr>
+				<?php 
+					$model = new Application_Model_DbTable_Categories();
+					$rowsA = $model->fetchAll($model->getData($row->idcategory));
+					if($rowsA->count() > 0)
+						getChildrent($rowsA, $level,$url);
+				?>
+			<?php
+		}		
+	}
+?>

@@ -1,0 +1,40 @@
+<object id="flashplayer" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="600" height="400">
+<param name="movie" value="player.swf" />
+<param name="allowFullScreen" value="true" />
+<param name="allowScriptAccess" value="always" />
+<param name="FlashVars" value="plugins=plugins/proxy.swf&proxy.link=http://www.youtube.com/watch?v=BzvH1BHz2cY" />
+<embed name="flashplayer" src="player.swf" FlashVars="plugins=plugins/proxy.swf&proxy.link=http://www.youtube.com/watch?v=BzvH1BHz2cY&&skin=http%3A%2F%2Fjanmagic.com%2FPlayer%2Fdragon.zip" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="600" height="400" />
+</object>
+<br/>
+allow Link:<br/>
+http://www.youtube.com/watch?v=5og2iJIOKDc<br/>
+http://www.youtube.com/watch?v=5og2iJIOKDc%26t=30 (start at 30s)<br/>
+http://www.youtube.com/v/5og2iJIOKDc<br/>
+http://gdata.youtube.com/feeds/api/playlists/FAE6ACA87A78894B<br/>
+<br/>
+use Dock menu:<br/>
+- open plugins/pluginslist.xml<br/>
+- replace gkplugins_youtube.swf to gkplugins_youtube.swf?dockmenu=true<br/>
+timeslide option parameter (use with plugins_player.php):<br/>
+- timeslidebgcolor : color of background timeslide, value is color code , Ex: 0xFF0000<br/>
+- timeslidebgalpha : alpha of background timeslide, value(0~100)<br/>
+- timeslidetimecolor : color of text time, value is color code , Ex: 0xFF0000<br/>
+- timeslide : enable or disable timeslide, default is enable, Ex: timeslide=false (disable)<br/>
+Box menu option parameter:<br/>
+- hidelogo : hide logo youtube default is true, value(true/false)<br/>
+- menu : show menu quality default is true, value(true/false)<br/>
+- default : quality default is 360p, value(240p/360p/480p/720p/1080p)<br/>
+- outcolor : color when mouse out, value is color code , Ex: 0xFF0000<br/>
+- overcolor : color when mouse over, value is color code , Ex: 0xFF0000<br/>
+- bgcolor : color of background list quality, value is color code , Ex: 0xFF0000<br/>
+- bgalpha : alpha of background list quality, value(0~100)<br/>
+- bgborder : color of border list quality, value is color code , Ex: 0xFF0000<br/>
+Ex1: &lt;plugins url="gkplugins_youtube.swf"/&gt;<br/>
+Ex2: &lt;plugins url="gkplugins_youtube.swf?menu=false&hidelogo=false"/&gt;<br/>
+Ex3: &lt;plugins url="gkplugins_youtube.swf?outcolor=0xFF0000&overcolor=0x00FF00&bgcolor=0x0000FF&bgalpha=30&bgborder=0xFFFFFF"/&gt;<br/>
+Ex4: &lt;plugins url="gkplugins_youtube.swf?timeslidebgcolor=0xFF0000&amp;timeslidebgalpha=70&amp;timeslidetimecolor=0x00FF00"/&gt;<br/>
+<br/>
+<b>Box menu option parameter</b><br/>
+<img src="optioninfo.jpg"/><br/>
+<b>timeslide option parameter</b><br/>
+<img src="optioninfo1.png"/>

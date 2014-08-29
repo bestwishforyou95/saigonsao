@@ -1,0 +1,32 @@
+<?php $row = $this->datas; $path = PUBLIC_PATH."/upload/";?>
+<div class="md-box md-box-8 float-right">      
+    <div class="">
+		<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><i class="icon-home"></i><span itemprop="title">Trang chủ</span></a></li>
+			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/"). $row->pcate_alias . "/"?>"><span itemprop="title"><?=$row->pcate_name?></span></a></li>
+			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><?=$row->product_name?></span></li>
+		</ol>
+		<div class="news-wap">
+			<fieldset>
+				<legend><h4><?=$row->product_name?></h4></legend>	  
+				<div class="prod-detail">
+					<div class="col-md-5">
+						<?php if(is_file($path.$row->product_image)){?>
+							<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/upload/$row->product_image&amp;w=250&amp;h=300")?>" />
+						<?}else{?>    
+							<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=250&amp;h=300")?>" />
+						<?}?>
+					</div>
+					<div class="col-md-7">
+						<?=$row->product_description?>
+					</div>
+				</div>
+				<div>
+					<?php echo $this->disqus('vn-life');?>
+				</div>			
+			</fieldset>
+        </div>
+    </div> 
+</div>
+<div class="clear"></div>
+ 

@@ -1,0 +1,31 @@
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li class="current"><a href="#">Quản lý Groups</a></li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Quản lý nhóm người dùng</span>
+</div>
+<div class="div_box">
+    <table id="GridView_TblMain" class="GridView_TblMain" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+            <tr class="GridView_TrTitle">
+                <th class="center" style="width: 40px;">Mã</th>
+                <th>Tên nhóm</th>
+                <th style="width: 200px;">Namespace</th>
+                <th class="center" style="width: 60px;">Cấp độ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->datas as $key=>$row){?>
+            <tr <?=$key%2==0?"class='odd'":"class='even'"?>>
+                <td class="center"><?=$row->idgroup?></td>
+                <td><a href="<?=$this->baseUrl("/admin/index/rules-group/id/$row->idgroup")?>"><?=$row->name?></a></td>
+                <td><?=$row->namespace?></td>
+                <td class="center"><?=$row->level?></td>
+            </tr>
+            <?}?>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,41 @@
+<div class="md-box md-box-8 float-right">      
+    <div class="">
+		<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><span itemprop="title"> Trang chủ </span></a></li>
+			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><?=$this->pname?></span></li>
+		</ol>
+		<div class="news-wap">
+			<fieldset>
+				<legend><h4><?=$this->pname?></h4></legend>	  
+				<div class="news-content">
+					<div class="products">
+					<?php $path = PUBLIC_PATH."/upload/"; foreach($this->datas as $row){?>
+						<div class="product col-xs-3 col-sm-3">
+							<div>
+								<div class="image-news" style="">
+									<a href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>">
+									<?php if(is_file($path.$row->product_image)){?>
+										<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/upload/$row->product_image&amp;w=150&amp;h=170")?>" />
+									<?}else{?>    
+										<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=150&amp;h=170")?>" />
+									<?}?>   
+									</a>       
+								</div>
+								<div class="news-content">
+									<h6><a style="color:red;font-weight:bolder;" href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>"><?=$row->product_name?></a></h6>
+									<a href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>" class="btn btn-sm btn-primary bolder">Chi tiết</a>
+									<a class="btn btn-sm btn-danger bolder" rel="331" href="#"><i class="fa fa-plus"></i> Giỏ hàng</a>
+								</div>  
+								<div class="clear"></div>
+							</div>  
+						</div>
+					<?}?>
+					<div class="clearfix"></div>
+					</div>
+					<?=$this->paginationControl($this->datas,"Sliding","pagination/pagination-control.phtml")?>
+				</div>			
+			</fieldset>
+        </div>
+    </div> 
+</div>
+<div class="clear"></div>

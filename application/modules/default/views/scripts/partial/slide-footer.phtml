@@ -1,0 +1,18 @@
+<div class="">
+	<?php 
+		$model = new Application_Model_DbTable_Articles();
+		$datas = $model->getSlideShow(null,"Slide-footer"); 
+	?>
+	<div id="carousel">
+        <ul style="margin-left: 0px;">
+			<? foreach($datas as $k=>$row){?>
+				<li><a href="" target="_blank"><img src="<?=$this->baseUrl("/")?>timthumb.php?src=<?=$this->baseUrl("upload/{$row->article_image}&w129&h=95")?>"></a></li>
+			<?}?>   
+			<? foreach($datas as $k=>$row){?>
+				<li><a href="" target="_blank"><img src="<?=$this->baseUrl("/")?>timthumb.php?src=<?=$this->baseUrl("upload/{$row->article_image}&w129&h=95")?>"></a></li>
+			<?}?>          
+        </ul>   
+	<div class="clearfix"></div>     
+    </div>
+</div>
+

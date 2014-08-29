@@ -1,0 +1,85 @@
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li class="current"><a href="#">Quản lý Video</a></li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Quản lý các Video</span>
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-video")?>" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>
+<div class="div_box">
+    <table id="GridView_TblMain" class="GridView_TblMain" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+            <tr class="GridView_TrTitle">
+                <th class="center" style="width: 40px;">STT</th>
+                <th class="center">Mô tả</th>
+                <th class="center" style="width: 80px;">Trạng thái</th> 
+                <th class="center" style="width: 90px;">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->datas as $key=>$row){?>
+                <tr>
+                    <td class="center"><?=$key+1?></td>
+                    <td><?=$row->article_description?></td>
+                    <td class="center">
+                        <a class="status" rel="<?=$row->idarticles?>"><span class="icon icon-color <?=$row->article_status?"icon-close":"icon-check"?>"></span></a>
+                    </td>
+                    <td class="center">
+                        <a href="<?=$this->baseUrl("/admin/index/edit-video/id/$row->idarticles")?>"><i class="icon-edit"></i>Sửa</a> |
+                        <a href="#" rel="<?=$row->idarticles?>" class="del"><i class="icon-trash"></i>Xóa</a>
+                    </td>
+                </tr>
+            <?}?>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function(){
+       $(".status").click(function(){
+            var id = $(this).attr("rel");
+            $.get("<?=$this->baseUrl("")?>admin/index/status-news",{idarticle:id},function(){},"json");
+       }); 
+       $(".del").click(function(){
+            var id = $(this).attr("rel");
+            if(confirm("Bạn muốn xóa video này?")){
+                $(this).parent("td").parent("tr").remove();
+                $.get("<?=$this->baseUrl("")?>admin/index/del-news",{idnews:id},function(){},"json");
+            }            
+       }); 
+    });
+</script>
+<div class="div_box">
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-video")?>" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>

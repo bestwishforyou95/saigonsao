@@ -1,0 +1,78 @@
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li><a href="<?=$this->baseUrl("/admin/index/list-group")?>">Quản lý nhóm người dùng</a><span>»</span></li>
+        <li class="current">Phân quyền</li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Phân quyền cho nhóm </span>
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+</div>
+<div class="div_box">
+    <table id="GridView_TblMain" class="GridView_TblMain" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+            <tr class="GridView_TrTitle">
+                <th class="center" style="width: 60px;">Modules</th>
+                <th class="center" style="width: 50px;">Controllers</th>
+                <th class="center" style="width: 100px;">Actions</th>
+                <th class="center">Tên trang</th>
+                <th class="center" style="width: 80px;">Allow</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                if(!$this->datas){
+                    echo "Bạn vui lòng chọn nhóm muốn phân quyền! <a href='".$this->baseUrl("/admin/index/list-group")."'>Click here</a></br></br>";
+                }else{
+					$modelM = new Application_Model_DbTable_Modules();
+					$rowM = $modelM->fetchAll();
+					$k = 0;
+					foreach($rowM as $rM){?>
+						<tr accesskey="<?=$k%2==0?"class='odd'":"class='even'"?>">
+                            <td colspan="5"><?=$rM->module_name?></td>
+                        </tr>
+						<?php 
+							$modelC = new Application_Model_DbTable_Controllers();
+							$rowC = $modelC->fetchAll("modules_id={$rM->idmodule}");
+							if($rowC->count() > 0)
+							foreach($rowC as $rC){?>
+								<tr accesskey="<?=$k%2==0?"class='odd'":"class='even'"?>">
+									<td style="text-align:right;">|------------</td>
+									<td colspan="4"><?=$rC->controller_name?></td>
+								</tr>	
+								<?php 
+									foreach($this->datas as $key=>$row){?>
+										<tr accesskey="<?=$key%2==0?"class='odd'":"class='even'"?>">
+											<td></td>
+											<td style="text-align:right;">|------------</td>
+											<td><?=$row->action_name?></td>
+											<td><a target="_blank" data-rel="tooltip" title="hiển thị trang" href="<?=$this->baseUrl("$row->module_name/$row->controller_name/$row->action_name")?>"><?=$row->page_name?></a></td>
+											<td class="center">
+												<a class="status" href="#"><span rel="<?=$row->idaction?>" class="icon icon-color<?=$row->allow?" icon-close":" icon-check"?>"></span></a>
+											</td>
+										</tr>
+									<? $k++;}
+								?>
+							<?php $k++;}
+						?>
+					<?php $k++;}}?>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(function(){
+        $(".status").click(function(){
+            var id = $(this).children("span").attr("rel");
+            $.get("<?=$this->baseUrl("/")?>admin/index/allow",{idaction:id,idgroup:<?=$this->idgroup?>},function(){},"json");
+        });
+    });
+</script>

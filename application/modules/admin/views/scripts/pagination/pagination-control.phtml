@@ -1,0 +1,52 @@
+<!--
+<div class="pagination pagination-right">
+    <ul>
+        <li><a href="#">Prev</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">Next</a></li>
+    </ul>
+</div>
+-->
+
+<?php if($this->pageCount){
+    $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+    unset($params['module']);
+    unset($params['controller']);
+    unset($params['action']);
+?>
+<div class="pagination pagination-right">
+    <ul>
+        <!-- Previous page link -->
+        <?php if(isset($this->previous)) {?>
+        <li>
+            <a rel="<?php echo $this->previous;?>" class="prev" href="<?php echo $this->url(array_merge($params, array('page'=>$this->previous)));?>">«</a>
+        </li>
+        <?php }else{?>
+        <li class="disabled"><a href="#">«</a></li>
+        <?php }?>
+        
+        <!-- Numbered page link -->
+        <?php foreach($this->pagesInRange as $page){?>
+            <?php if($page != $this->current){?>
+                <li>
+                    <a rel="<?php echo $page;?>" href="<?php echo $this->url(array_merge($params, array('page'=>$page)))?>"><?php echo $page;?></a>
+                </li>
+            <?php }else{?>
+                <li class="active"><a><?php echo $page;?></a></li>
+            <?php }?>
+        <?php }?>
+        
+        <!-- Next page link -->
+        <?php if(isset($this->next)){?>
+            <li>
+                <a rel="<?php echo $this->next;?>" class="next" href="<?php echo $this->url(array_merge($params, array('page'=>$this->next)));?>">»</a>
+            </li>
+        <?php }else{?>
+        <li class="disabled"><a href="#">»</a></li>
+        <?php }?>
+    </ul>
+</div>
+<?php }?>

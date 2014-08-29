@@ -1,0 +1,91 @@
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li class="current"><a href="#">Quản lý Users</a></li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Quản lý tài khoản quản trị</span>
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-user")?>" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>
+<div class="div_box">
+    <table id="GridView_TblMain" class="GridView_TblMain" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+            <tr class="GridView_TrTitle">
+                <th class="center" style="width: 40px;">STT</th>
+                <th style="width: 150px;">Tài khoản</th>
+                <th style="width: 150px;">Thuộc nhóm</th>
+                <th class="center">Tên đầy đủ</th>
+                <th class="center" style="width: 60px;">Giới tính</th>
+                <th class="center" style="width: 80px;">Trạng thái</th>
+                <th class="center" style="width: 90px;">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->datas as $key=>$row){?>
+                <tr>
+                    <td class="center"><?=$key+1?></td>
+                    <td><?=$row->username?></td>
+                    <td><?=$row->name?></td>
+                    <td><?=$row->fullname?></td>
+                    <td class="center"><?=$row->gender?"Nam":"Nữ"?></td>
+                    <td class="center">
+                    <a class="status" rel="<?=$row->iduser?>"><span class="icon icon-color <?=$row->user_status?"icon-close":"icon-check"?>"></span></a>
+                    </td>
+                    <td class="center">
+                        <a href="<?=$this->baseUrl("/admin/index/edit-user/id/$row->iduser")?>"><i class="icon-edit"></i>Sửa</a> |
+                        <a href="#" rel="<?=$row->iduser?>" class="del"><i class="icon-trash"></i>Xóa</a>
+                    </td>
+                </tr>
+            <?}?>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function(){
+       $(".status").click(function(){
+            var id = $(this).attr("rel");
+            $.get("<?=$this->baseUrl("")?>admin/index/status-user",{iduser:id},function(){},"json");
+       }); 
+       $(".del").click(function(){
+            var id = $(this).attr("rel");
+            if(confirm("Bạn muốn xóa tài khoản này?")){
+                $(this).parent("td").parent("tr").remove();
+                $.get("<?=$this->baseUrl("")?>admin/index/del-user",{iduser:id},function(){},"json");
+            }            
+       }); 
+    });
+</script>
+<div class="div_box">
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-user")?>" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>

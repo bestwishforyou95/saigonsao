@@ -1,0 +1,111 @@
+<div class="md-box md-box-8 float-right"> 
+	<div class="">
+		<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><span itemprop="title"> Trang chủ </span></a></li>
+			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Đặt hàng</span></li>
+		</ol>       
+		<form id="form-contact" class="form-horizontal" action="" method="post">
+			<div class="news-wap" style="">		
+				<?=$this->notify;?>
+				<?php 
+					$auth = Zend_Auth::getInstance();
+					$identity = $auth->getIdentity();
+					$check = isset($identity)?1:0;
+				?>
+				<fieldset>
+					<legend><h4>Thông tin cá nhân</h4></legend>	
+					<div class="">
+						<div class="control-group">
+							<label class="control-label" for="contact_email">Đơn vị mua hàng <span class="tred">(*)</span></label>
+							<div class="controls">
+								<input class="xxlarge clear focus" <?=$check?"style='background:#eee;'":""?> value="<?=$check?$identity->donvimuahang:$this->contact_email?>" type="text" name="contact_email" id="contact_email" placeholder="Đơn vị mua hàng"/>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="contact_fullname">Người mua hàng <span class="tred">(*)</span></label>
+							<div class="controls">
+								<input class="xxlarge clear" <?=$check?"style='background:#eee;'":""?> type="text" name="contact_fullname" value="<?=$check?$identity->fullname:$this->contact_fullname?>" id="contact_fullname" placeholder="Người mua hàng"/>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="contact_address">Địa chỉ <span class="tred">(*)</span></label>
+							<div class="controls">
+								<input class="xxlarge clear" <?=$check?"style='background:#eee;'":""?> type="text" value="<?=$check?$identity->address:$this->contact_address?>" name="contact_address" id="contact_address" placeholder="Địa chỉ"/>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="contact_phone">Điện thoại <span class="tred">(*)</span></label>
+							<div class="controls">
+								<input class="xxlarge clear" <?=$check?"style='background:#eee;'":""?> type="text" value="<?=$check?$identity->phone:$this->contact_phone?>" name="contact_phone" id="contact_phone" placeholder="Điện thoại"/>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</fieldset>
+			</div>  <!--end liên hệ-->
+			<div class="news-wap" style="">
+				<fieldset>
+					<legend><h4>Thông tin đặt hàng</h4></legend>        
+					<div class="news-content">   
+						<div class="control-group">
+							<div class="controls">
+								<textarea class="xxxlarge clear" name="contact_dathang" rows="5" id="contact_dathang"><?=$this->contact_dathang?></textarea>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>    
+				</fieldset>    
+			</div><!--end chi tiết--> 
+			<div class="news-wap" style="">
+				<fieldset>
+					<legend><h4>Thông tin xuất hóa đơn</h4></legend>        
+					<div class="news-content">   
+						<div class="control-group">
+							<label class="control-label" for="contact_dv">Tên đơn vị <span class="tred">(*)</span></label>
+							<div class="controls">
+								<input class="xxlarge clear" <?=$check?"style='background:#eee;'":""?> type="text" value="<?=$check?$identity->tendonvi:$this->contact_dv?>" name="contact_dv" id="contact_dv" placeholder="Tên đơn vị"/>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="contact_diachi">Địa chỉ <span class="tred">(*)</span></label>
+							<div class="controls">
+								<input class="xxlarge clear" <?=$check?"style='background:#eee;'":""?> type="text" value="<?=$check?$identity->diachidonvi:$this->contact_diachi?>" name="contact_diachi" id="contact_diachi" placeholder="Địa chỉ"/>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="contact_msthue">Mã số thuế <span class="tred">(*)</span></label>
+							<div class="controls">
+								<input class="xxlarge clear" <?=$check?"style='background:#eee;'":""?> type="text" value="<?=$check?$identity->masothue:$this->contact_msthue?>" name="contact_msthue" id="contact_msthue" placeholder="Mã số thuế"/>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="captcha"><?php
+								echo $st1 = rand(0,9); echo " + "; echo $st2 = rand(0,9); echo " = ";
+							?></label>
+							<div class="controls">
+								<input class="xxlarge" type="text" name="captcha" id="captcha" placeholder="Kết quả"/>
+								<input type="hidden" id="recaptcha" name="recaptcha" value="<?=$st1+$st2?>" />
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="control-group" style="">
+							<label class="control-label"></label>
+							<div class="controls">
+								<button type="submit" class="btn" style="background:blue;color:white;margin-left:10px;">Gửi</button>
+								<a onclick="$('.clear').val('');$('.focus').focus();" class="btn" style="background:#ccc;color:white;">Hủy</a>
+							</div>
+						</div>
+					</div>    
+				</fieldset>    
+			</div><!--end hóa đơn-->   
+			<div class="clearfix"></div> 
+		</form>  		
+	</div>  
+</div>

@@ -1,0 +1,33 @@
+<div class="md-box md-box-8 float-right">      
+    <div class="box-md">
+		<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><span itemprop="title"> Trang chủ </span></a></li>
+			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Tin tức</span></li>
+		</ol>
+		<hr>
+		<h4 style="font-weight:bolder;">
+			<span style="color: red;">Tin tức</span>
+		</h4>  
+        <div class="news-content">
+        <?php if($this->datas->count()>0){$path = APPLICATION_PATH."/../public/upload/";foreach($this->datas as $row){?>  
+            <div class="news-item">
+                <a class="news-img" href="<?=$this->baseUrl("/chi-tiet/{$row->article_alias}/$row->idarticles")?>">
+					<?php if(is_file($path.$row->article_image)){?>
+						<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/upload/{$row->article_image}&w=150&amp;h=100")?>" />
+					<?}else{?>    
+						<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=150&amp;h=170")?>" />
+					<?}?> 
+				</a>              
+				<h3><a href="<?=$this->baseUrl("/chi-tiet/{$row->article_alias}/$row->idarticles")?>"><?=$row->article_title?></a></h3>
+				<div style="text-align: justify;overflow: hidden;max-height: 62px;"><?=$row->article_description.". . ."?></div>
+                <span style="float: right;"><a href="<?=$this->baseUrl("/chi-tiet/{$row->article_alias}/$row->idarticles")?>">Xem chi tiết &nbsp; &gt;&gt;</a></span>
+                <span class="news-timestamp"><?=date("d/m/Y - H:i",strtotime($row->article_datecreate))?></span>
+				<div class="clearfix"></div>
+            </div>
+        <?}}else{echo "<li class=news-item>Đang cập nhật...</li>";}?> 
+        <?=$this->paginationControl($this->datas,"Sliding","pagination/pagination-control.phtml")?>
+        </div>
+    </div> 
+</div>
+<div class="clear"></div>
+ 

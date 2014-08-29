@@ -1,0 +1,13 @@
+*{margin:0;padding:0;}
+body{background:url(../img/vali-admin-login_03.png);}
+#header{border-bottom:1px solid #333;height:150px;background:url(../img/vali-admin-login_02.jpg);}
+#header div{text-align: center;padding-top: 100px;}
+#header div h1{color: white;margin:0px auto;}
+#login{width:400px;margin:50px auto;border:1px solid #666;border-radius:5px;padding:30px;}
+#login div{margin:20px;}
+#login div span{color:white;width:150px;float:left;}
+#login div.input input{border-radius: 3px;height:20px;width:200px;}
+#login div.btn input.lg{border:none;border-radius:3px;padding:10px 15px;color:white;background: #de961c; margin-right:58px;}
+#login div.btn{color:white;}
+#login div.btn input.lg:hover{background: #c78c28;}
+.input input:focus{background: #f5d39b;}

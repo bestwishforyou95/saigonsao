@@ -1,0 +1,28 @@
+<?php
+function showCategories($url="/", $parentId=0){
+	$model = new Application_Model_DbTable_Pcates();
+	$rows = $model->fetchAll($model->getData($parentId)->where('c.pcate_status=?',1));
+	if(empty($rows)){
+		return;
+	}
+	$class = ($parentId==0)?" class='nav sidebar'":"";
+	echo "<ul{$class}>";
+	if($parentId==0){
+		echo "<h2>Danh mục sản phẩm</h2>";
+	}
+	foreach($rows as $key=>$row){?>
+		<?php if($parentId==0){?>
+		<li><a style="color:red;font-weight:bolder;background-color: #eee;border-bottom:1px solid #ccc;" href="<?=$url .$row->pcate_alias. "/";?>"><span><?=$row->pcate_name?></span></a>
+			<div>
+				<?php showCategories($url,$row->pcate_id); ?>
+			</div>
+		<?php }else{ ?>
+		<li><a style="color:#000;font-weight:bolder;" href="<?=$url .$row->pcate_alias. "/";?>"><span><?=$row->pcate_name?></span></a>
+			<?php showCategories($url,$row->pcate_id); ?>
+		<?php } ?>
+		</li> 
+	<?php }
+	echo "</ul>";
+}
+showCategories($this->baseUrl);
+?>

@@ -1,0 +1,41 @@
+﻿<?php 
+	$modelC = new Application_Model_DbTable_Pcates();
+	$rows = $modelC->getHome();
+	$i = 0;
+	if($rows->count() > 0){ foreach($rows as $r){ $i++; if($r->pcate_homeqty > 0){?>
+		<?php
+			$model = new Application_Model_DbTable_Products();
+			$datas = $model->fetchAll($model->getProducts($r->pcate_alias)->where("product_status=?",1)->order("product_date DESC")->limit(4));
+			if($datas->count() > 0){?>
+				<div class="products" <?=$i==1?"style='margin-top:-17px;'":""?>>
+					<h2><?=$r->pcate_name?></h2>
+					<div style="border:1px solid #eee;">
+						<?php $path = PUBLIC_PATH."/upload/"; foreach($datas as $row){?>
+							<div class="product col-xs-3 col-sm-3">
+								<div>
+									<div class="image-news" style="">
+										<a href="<?=$this->baseUrl("/san-pham/{$row->product_alias}/")?>">
+										<?php if(is_file($path.$row->product_image)){?>
+											<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/upload/$row->product_image&amp;w=150&amp;h=170")?>" />
+										<?}else{?>    
+											<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=150&amp;h=170")?>" />
+										<?}?>   
+										</a>       
+									</div>
+									<div class="news-content">
+										<h6><a style="color:red;font-weight:bolder;" href="<?=$this->baseUrl("/san-pham/{$row->product_alias}/")?>"><?=$row->product_name?></a></h6>
+										<div class="gbutton">
+											<a href="<?=$this->baseUrl("/san-pham/{$row->product_alias}/")?>" class="btn btn-sm btn-primary bolder">Chi tiết</a>
+											<a class="btn btn-sm btn-danger bolder" rel="331" href="#"><i class="fa fa-plus"></i> Giỏ hàng</a>
+										</div>
+									</div>  
+								</div> 
+							</div>
+						<?}?>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			<?php }
+		?>
+	<?php }}}
+?>

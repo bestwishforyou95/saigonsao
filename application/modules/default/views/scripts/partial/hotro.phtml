@@ -1,0 +1,29 @@
+<?php
+    $model = new Application_Model_DbTable_Articles();
+    $select = $model->select();
+    $select->where("article_type=?","hotro")->where("article_status=?",1);
+    $datas = $model->fetchAll($select);
+	$selectsky = $model->select();
+	$selectsky->where("article_type=?","hotrosky")->where("article_status=?",1);
+	$datasky = $model->fetchAll($selectsky);
+?>
+<?php if(count($datas) > 0){?>
+	<div class="side-bar">
+		<h2>Hổ trợ trực tuyến</h2>
+		<div class="hotro">
+			<?php foreach($datas as $row){?>
+				<a href="ymsgr:sendim?<?=$row->article_alias?>" mce_href="ymsgr:sendim?<?=$row->article_alias?>" border="0">
+					<img src="http://opi.yahoo.com/online?u=<?=$row->article_alias?>&t=2" mce_src="http://opi.yahoo.com/online?u=<?=$row->article_alias?>&t=2"><br>
+					<span style=""><?=$row->article_title?></br><span style="font-weight:boler;color:red;"><?=$row->article_description?></span></span>
+				</a>
+			<?php }?>
+		</div>
+		<!--<div class="hotrosky">
+			<?php foreach($datasky as $row){?>
+				<a href="Skype:<?=$row->article_alias?>?chat"> 
+					<img src="http://mystatus.skype.com/mediumicon/<?=$row->article_alias?>" mce_href="Skype:<?=$row->article_alias?>?chat" title="Admin itviet360" width="50" height="30" alt="">
+				</a>
+			<?php }?>
+		</div>-->
+	</div>
+<?php }?>

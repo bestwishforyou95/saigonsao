@@ -1,0 +1,19 @@
+<?php $row = $this->data;?>
+<div class="md-box md-box-8 float-right">      
+    <div class="">
+		<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><span itemprop="title"> Trang chủ </span></a></li>
+			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><?=$row->article_title?></span></li>
+		</ol>
+		<div class="news-wap">
+			<fieldset>
+				<legend><h4><?=$row->article_title?></h4></legend>	  
+				<div class="news-content">
+					<?=$row->article_detail;?>
+				</div>			
+			</fieldset>
+        </div>
+    </div> 
+</div>
+<div class="clear"></div>
+ 

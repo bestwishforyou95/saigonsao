@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+    <meta charset="utf-8" />
+	<?=$this->headTitle("Administrator")?>
+    <link href="<?=$this->baseUrl("/css/style_public.css")?>" type="text/css" rel="stylesheet" />
+    <link href="<?=$this->baseUrl("/css/ui-lightness/jquery-ui-1.8.22.custom.css")?>" type="text/css" rel="stylesheet" />
+    <script src="<?=$this->baseUrl("/js/jquery-1.7.1.min.js")?>" type="text/javascript"></script>
+    <script src="<?=$this->baseUrl("/js/jquery-ui-1.8.22.custom.min.js")?>" type="text/javascript"></script>
+    <script src="<?=$this->baseUrl("/js/temp.js")?>" type="text/javascript"></script>
+    <?=$this->headScript()?>
+    <link rel="shortcut icon" href="<?=$this->baseUrl("")?>/img/favicon.png" type="image/x-icon"/>
+</head>
+
+<body>
+    <script>
+        $(function(){
+            $("a[href='#']").click(function(){return false;});
+        });
+    </script>
+    <div id="page_website" align="center">
+        <div id="page_header">
+            <div class="div_header">
+                <div class="div_header_top">
+            	    <ul style="float:right;" class="ul_path">
+                    <?php 
+                        $auth = Zend_Auth::getInstance();
+                        $identity = $auth->getIdentity();
+                    ?>
+            		    <li style="font-weight:normal;" class="current">Xin chào <b> <?=$identity->fullname?> </b></li>
+            		    <li><span>|</span><a title="Xem website" href="<?=$this->baseUrl("/")?>" target="_blank">Xem website</a></li>
+            		    <li><span>|</span><a title="Thoát khỏi hệ thống" href="<?=$this->baseUrl("/admin/index/logout")?>" style="color: brown;font-weight:bolder;">[Thoát]</a></li>
+            	    </ul>
+                </div>
+                <div class="div_header_bottom" style="">
+            	    <div>
+                        <h1 style="text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);margin:0px;;font-size:25px;color: #fff;font-family: 'Shojumaru';">Administrator</h1>
+            	    </div>
+                </div>
+            </div>            
+        </div><!--end header-->
+        <div id="page_menu">
+            <div class="div_menu">
+                <ul id="nav">
+					<?php 
+						$auth = Zend_Auth::getInstance();
+						$identity = $auth->getIdentity(); 
+						
+						$acl = Zend_Registry::get('acl');?>
+					<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-group') && $acl->isAllowed($identity->groups_id, 'admin/index/list-user')){?>		
+						<li class="top"><a class="top_link" title="quản lý tài khoản"><span class="down">Quản lý tài khoản</span></a>
+							<ul class="sub">
+								
+								<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-group')){?>
+									<li><a href="<?=$this->baseUrl("/admin/index/list-group")?>">Quản lý groups<span>Quản lý nhóm các tài khoản quản lý website</span></a></li>
+								<?php }?>  
+								<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-user')){?>							
+									<li><a href="<?=$this->baseUrl("/admin/index/list-user")?>">Quản lý users<span>Quản lý các tài khoản cùng quản trị website</span></a></li>
+								<?php }?>  
+							</ul>
+						</li><!---->
+					<?php }?>
+                    <li class="top"><a class="top_link" title="Tin tức"><span class="down">Quản lý</span></a>
+                        <ul class="sub">
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-categories-news')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/list-categories-news")?>">Quản lý danh mục tin tức<span>Quản lý danh mục tin tức, xóa, sửa, thêm, trạng thái, SEO danh mục tin tức,...</span></a></li>
+                            <?php }?>
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-news')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/list-news")?>">Quản lý tin tức (Bài viết)<span>Quản lý danh sách tin tức, xóa, sửa, thêm, trạng thái, SEO tin tức,...</span></a></li>
+                            <?php }?>
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-pcates')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/list-pcates")?>">Danh mục sản phẩm<span>Quản lý danh mục sản phẩm, xóa, sửa, thêm, trạng thái, SEO danh mục,... </span></a></li>
+                            <?php }?>
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-categories-news')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/list-prods")?>">Quản lý sản phẩm<span>Quản lý danh sách sản phẩm, xóa, sửa, thêm, trạng thái, SEO sản phẩm,...</span></a></li>
+							<?php }?>							
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/pages')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/pages")?>">Quản lý trang<span>Quản lý trang con trên website</span></a></li>
+							<?php }?>						
+							<?php //if($acl->isAllowed($identity->groups_id, 'admin/index/contacts')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/contacts")?>">Quản lý liên hệ<span>Quản lý các liên hệ</span></a></li>
+							<?php //}?>
+						</ul>
+                    </li><!---->
+					<?php if($acl->isAllowed($identity->groups_id, 'admin/index/edit-logo')){?>
+                    <li class="top">
+                        <a title="Giao diện" class="top_link"><span class="down">Giao diện</span></a>
+                        <ul class="sub">
+                            <li><a href="<?=$this->baseUrl("/admin/index/edit-logo")?>">Cập nhật logo<span>Chức năng cập nhật logo cho website và Công ty</span></a></li>
+                            <li><a href="<?=$this->baseUrl("/admin/index/edit-banner")?>">Cập nhật Banner giữa<span>Chức năng cập nhật banner giữa cho website</span></a></li>
+							<li><a href="<?=$this->baseUrl("/admin/index/edit-banner-top")?>">Cập nhật Banner chính<span>Chức năng cập nhật banner trên cho website</span></a></li>
+                            <li><a href="<?=$this->baseUrl("/admin/index/edit-background")?>">Cập nhật hình nền website<span>Cho phép thay đổi hình nền website, có thể chọn hình nền có sẵn hoặc upload hình nền mới</span></a></li>
+                            <li><a href="<?=$this->baseUrl("/admin/index/edit-footer")?>">Chỉnh sửa chân trang<span>Chức năng chỉnh sửa thông tin chân trang cho website</span></a></li>
+                        </ul>
+                    </li><!---->
+					<?php }?>
+                    <li class="top">
+                        <a title="Quản lý khác" class="top_link"><span class="down">Quản lý khác</span></a>
+                        <ul class="sub">
+							<li><a href="<?=$this->baseUrl("/admin/index/edit-infor")?>">Thông tin tài khoản<span>Chỉnh sửa thông tin tài khoản quản trị website</span></a></li>
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-slide')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/list-slide")?>">Quản lý Slide<span>Chỉnh sửa thông tin slide chính, footer, ...</span></a></li>
+							<?php }?>
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-video')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/list-video")?>">Quản lý Video<span>Chỉnh sửa thông tin video, thư viện video...</span></a></li>
+							<?php }?>
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/edit-ads-left')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/edit-ads-left")?>">Quảng cáo trái<span>Chỉnh sửa quảng cáo bên trái</span></a></li>
+							<?php }?>
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/edit-ads-right')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/edit-ads-right")?>">Quảng cáo phải<span>Chỉnh sửa quảng cáo bên phải</span></a></li>
+							<?php }?>
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-hotro')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/list-hotro")?>">Hỗ trợ trực tuyến<span>Thiết lập thông tin hỗ trợ khách hàng yahoo</span></a></li>
+							<?php }?>
+							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/edit-logo')){?>
+								<li><a href="<?=$this->baseUrl("/admin/index/edit-logo")?>">Mạng xã hội<span>Cập nhật thông tin mạng xã hôi Facebook, G+ (Plus), Twitter</span></a></li>
+							<?php }?>
+						</ul>
+                    </li><!---->
+                </ul>
+            </div>
+        </div><!--end menu-->
+        <div id="page_container">
+            <?php echo $this->layout()->content; ?>
+        </div><!--end container-->
+        <div id="page_footer" class="align-right">
+            <div style="padding:10px 10px 0px 0px;">
+                Develop by : <b>Võ Thị Thu Linh</b><br />
+                Copyright © 2011 - 2012
+            </div>
+        </div><!--end footer-->
+    </div>
+</body>
+</html>

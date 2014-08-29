@@ -1,0 +1,3 @@
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} ^/upload/
+RewriteRule ^upload/thumbnail_([0-9]+)x([0-9]+)-(.*)$ http://localhost:81/4kshop.vn/public/timthumb.php?src=http://localhost:81/4kshop.vn/public/upload/$3&w=$1&h=$2 [L]

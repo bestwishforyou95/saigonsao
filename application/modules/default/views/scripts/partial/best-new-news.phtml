@@ -1,0 +1,41 @@
+<?php
+    $model = new Application_Model_DbTable_Articles();
+    $datas = $model->getNews("article_datecreate");
+    function timeSpan($time1,$time2){
+        $timespan = (strtotime($time2)-strtotime($time1));
+        if($timespan*(-1)/(60*60*24*30)>1)
+            return round($timespan*(-1)/(60*60*24*30))." tháng trước";
+        else if($timespan*(-1)/(60*60*24)>1)
+            return round($timespan*(-1)/(60*60*24))." ngày trước";
+        else if($timespan*(-1)/(60*60)>1)
+            return round($timespan*(-1)/(60*60))." giờ trước";
+        else if($timespan*(-1)/(60)>1)
+            return round($timespan*(-1)/60)." phút trước";
+        else if($timespan*(-1)>1){
+            return " vài giây trước";
+        }
+    }
+?>
+<div class="products">
+	<h2>Tin mới</h2>
+	<div class="">
+		<?php $path = APPLICATION_PATH."/../public/upload/"; foreach($datas as $row){?>
+			<div class="content-news col-md-3">
+				<div class="image-news" style="">
+					<a href="<?=$this->baseUrl("/chi-tiet/{$row->article_alias}/{$row->idarticles}")?>">
+						<?php if(is_file($path.$row->article_image)){?>
+							<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/upload/$row->article_image&amp;w=150&amp;h=170")?>" />
+						<?}else{?>    
+							<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=150&amp;h=170")?>" />
+						<?}?>   
+					</a>       
+				</div>
+				<div class="news-content">
+					<h6><a href="<?=$this->baseUrl("/chi-tiet/{$row->article_alias}/{$row->idarticles}")?>"><?=$row->article_title?></a></h6>
+					<p style="color: #333;"><b>Vào lúc: </b> <?=timeSpan(date("Y/m/d H:i:s",time()),$row->article_datecreate);?></p>
+				</div>  
+				<div class="clearfix"></div>
+			</div>
+		<?}?>
+	</div>
+</div>

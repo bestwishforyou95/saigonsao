@@ -1,0 +1,41 @@
+<div class="md-box md-box-8 float-right"> 
+	<div class="">
+		<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><span itemprop="title"> Trang chủ </span></a></li>
+			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Đăng nhập</span></li>
+		</ol> 
+		<div class="news-wap" style="">	
+			<fieldset class="">
+				<legend><h4>Đăng nhập</h4></legend>	
+				<div class="">
+					<?php 
+						$auth = Zend_Auth::getInstance();
+						$identity = $auth->getIdentity();
+						if(!isset($identity)){?>
+							<form id="form-contact" class="form-horizontal" action="" method="post">
+								<?=$this->notify;?>
+								<div class="control-group">
+									<label class="control-label" for="username">Tài khoản <span class="tred">(*)</span></label>
+									<div class="controls">
+										<input class="xxlarge clear" value="" type="text" name="username" id="username" placeholder="Tài khoản"/>
+									</div>
+									<label class="control-label" for="password">Mật khẩu <span class="tred">(*)</span></label>
+									<div class="controls">
+										<input class="xxlarge clear" value="" type="password" name="password" id="password" placeholder="Mật khẩu"/>
+									</div>
+									<label class="control-label" for=""><span class="tred"></span></label>
+									<div class="controls">
+										<button type="submit" class="btn" style="background:red;color:white;margin-left:10px;">Đăng nhập</button><a href="<?=$this->baseUrl("/dang-ky/")?>" style="padding:10px;font-weight:bolder;"> Đăng ký</a>|<a href="<?=$this->baseUrl("/quen-mat-khau/")?>" style="padding:10px;font-weight:bolder;">Quên mật khẩu ?</a>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</form>
+						<?php }else{?>
+							<div class="alert alert-success">Bạn đang đăng nhập với tài khoản <span style="color:red;font-weight:bolder;"><?=$identity->fullname?> </span>! Bạn muốn đăng nhập với tài khoản khác ? Vui lòng <a href="<?=$this->baseUrl("/dang-xuat/?r=1")?>">đăng xuất</a></div>
+						<?php }
+					?>
+				</div>
+			</fieldset>
+		</div>		
+	</div>
+</div>

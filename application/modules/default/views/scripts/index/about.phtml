@@ -1,0 +1,17 @@
+<div class="left-main">
+    <?=$this->partial("partial/list-chapter.phtml")?>
+</div>
+<div class="right"> 
+    <div>   
+        <?php foreach($this->datas as $row){?>
+    <div class="news-wap">
+    	<h4><?=$row->article_title?></h4>     
+            <div class="news-content">
+                <?=$row->article_detail?>
+            </div>
+        </div>
+        <div style="height:10px;"></div>
+        <?}?>
+    </div>   
+</div>
+<div class="clear"></div>

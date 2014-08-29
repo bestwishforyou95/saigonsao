@@ -1,0 +1,160 @@
+<?php 
+	function getChildrent($rs, $level = 0, $url = "/", $color = "color:red;"){
+		$level ++;
+		foreach($rs as $key=>$row){
+			?>
+				<tr>
+					<td class="center"><?=$key+1?></td>
+					<td><span style="color:red;font-weight:bolder;"><?php for($i=0;$i<$level;$i++) echo "&laquo;----&raquo;";?></span> <?=$row->pcate_name?></td>
+					<td><?=$row->parent?></td>
+					<td class="center"><?=date("d/m/Y - H:i:s",strtotime($row->pcate_date))?></td>
+                    <td class="center">
+						<a class="showhome" rel="<?=$row->pcate_id?>"><span class="icon icon-color <?=$row->pcate_showhome?"icon-close":"icon-check";?>"></span></a>
+						<input class="homeqty" rel="<?=$row->pcate_id?>" style="width:20px;margin:0px 5px;text-align:center;" value="<?=$row->pcate_homeqty;?>"/>
+					</td>
+                    <td class="center">
+						<input class="orderhome" rel="<?=$row->pcate_id?>" style="width:20px;margin:0px 5px;text-align:center;" value="<?=$row->pcate_orderhome;?>"/>
+                    </td>
+					<td class="center">
+						<a class="status" rel="<?=$row->pcate_id?>"><span class="icon icon-color <?=$row->pcate_status?"icon-close":"icon-check";?>"></span></a>
+					</td>
+					<td class="center">
+						<a href="<?=$url;?>admin/index/edit-pcates/id/<?=$row->pcate_id ?>"><i class="icon-edit"></i>Sửa</a>
+						<?php if($row->pcate_status==2) echo ""; else{?>
+							 | <a href="#" rel="<?=$row->pcate_id?>" class="del"><i class="icon-trash"></i>Xóa</a>
+						<?php }?>
+					</td>
+				</tr>
+				<?php 
+					$model = new Application_Model_DbTable_Pcates();
+					$rowsA = $model->fetchAll($model->getData($row->pcate_id));
+					if($rowsA->count() > 0)
+						getChildrent($rowsA, $level,$url);
+				?>
+			<?php
+		}		
+	}
+?>
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li class="current"><a href="#">Quản lý danh mục sản phẩm</a></li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Quản lý danh mục sản phẩm</span>
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-pcates")?>" title="Thêm mới">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>
+<div class="div_box">
+    <table id="GridView_TblMain" class="GridView_TblMain" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+            <tr class="GridView_TrTitle">
+                <th class="center" style="width: 40px;">STT</th>
+                <th>Tên danh mục</th>
+                <th class="center" style="width: 150px;">Danh mục cha</th>
+                <th class="center" style="width: 150px;">Ngày tạo</th>
+                <th class="center" style="width: 80px;">Trang chủ</th>
+                <th class="center" style="width: 80px;">Sắp xếp</th>
+                <th class="center" style="width: 80px;">Trạng thái</th>
+                <th class="center" style="width: 90px;">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?=$this->notify?>
+            <?foreach($this->datas as $key=>$row){?>
+                <tr>
+                    <td class="center"><?=$key+1?></td>
+                    <td><span style="font-weight:bolder;text-transform:uppercase;color:red;"><?=$row->pcate_name?></span></td>
+                    <td><?=$row->parent?></td>
+                    <td class="center"><?=date("d/m/Y - H:i:s",strtotime($row->pcate_date))?></td>
+                    <td class="center">
+						<a class="showhome" rel="<?=$row->pcate_id?>"><span class="icon icon-color <?=$row->pcate_showhome?"icon-close":"icon-check";?>"></span></a>
+						<input class="homeqty" rel="<?=$row->pcate_id?>" style="width:20px;margin:0px 5px;text-align:center;" value="<?=$row->pcate_homeqty;?>"/>
+					</td>
+                    <td class="center">
+						<input class="orderhome" rel="<?=$row->pcate_id?>" style="width:20px;margin:0px 5px;text-align:center;" value="<?=$row->pcate_orderhome;?>"/>
+                    </td>
+                    <td class="center">
+						<a class="status" rel="<?=$row->pcate_id?>"><span class="icon icon-color <?=$row->pcate_status?"icon-close":"icon-check";?>"></span></a>
+                    </td>
+                    <td class="center">
+                        <a href="<?=$this->baseUrl("/admin/index/edit-pcates/id/$row->pcate_id")?>"><i class="icon-edit"></i>Sửa</a>
+                        <?php if($row->pcate_status==2) echo ""; else{?>
+							 | <a href="#" rel="<?=$row->pcate_id?>" class="del"><i class="icon-trash"></i>Xóa</a>
+						<?php }?>
+                    </td>
+                </tr>
+				<?php 
+					$model = $this->model;
+					$rows = $model->fetchAll($model->getData($row->pcate_id));
+					//var_dump(count($rows));
+					if($rows->count() > 0)
+						getChildrent($rows,0,$this->baseUrl(""));
+				?>
+            <?}?>                
+        </tbody>
+    </table>
+    <?=$this->paginationControl($this->datas,"Sliding","pagination/pagination-control.phtml")?>
+</div>
+<script>
+    $(function(){
+       $(".status").click(function(){
+        var id = $(this).attr("rel");
+        $.get("<?=$this->baseUrl("")?>/admin/index/status-pcates",{idcate:id},function(){},"json");
+       }); 
+       $(".showhome").click(function(){
+		var id = $(this).attr("rel");
+        $.get("<?=$this->baseUrl("")?>/admin/index/home-pcates",{idcate:id},function(){},"json");
+       }); 
+       $(".homeqty").change(function(){
+        var id = $(this).attr("rel");
+        var qty = $(this).val();
+        $.get("<?=$this->baseUrl("")?>/admin/index/qty-pcates",{idcate:id,qty:qty},function(){},"json");
+       }); 
+       $(".orderhome").change(function(){
+        var id = $(this).attr("rel");
+        var order = $(this).val();
+        $.get("<?=$this->baseUrl("")?>/admin/index/orderhome-pcates",{idcate:id,order:order},function(){},"json");
+       }); 
+       $(".del").click(function(){
+            var id = $(this).attr("rel");
+            if(confirm("Bạn muốn xóa danh mục này?")){
+                $(this).parent("td").parent("tr").remove();
+                $.get("<?=$this->baseUrl("")?>/admin/index/del-pcates",{idcate:id},function(){},"json");
+            }            
+       });
+    });
+</script>
+<div class="div_box">
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-pcates")?>" title="Thêm mới">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>

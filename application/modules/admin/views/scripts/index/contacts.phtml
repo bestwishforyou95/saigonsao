@@ -1,0 +1,52 @@
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li class="current"><a href="#">Quản lý liên hệ</a></li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Quản lý liên hệ</span>
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+</div>
+<div class="div_box">
+    <table id="GridView_TblMain" class="GridView_TblMain" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+            <tr class="GridView_TrTitle">
+                <th class="center" style="width: 40px;">STT</th>
+                <th style="width: 100px;">Họ tên</th>
+                <th style="width: 100px;">Email</th>
+                <th style="width: 200px;">Tiêu đề</th>
+                <th>Chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->datas as $key=>$row){?>
+                <tr>
+                    <td class="center"><?=$key+1?></td>
+                    <td><?=$row->contact_fullname?></td>
+                    <td><?=$row->contact_email?></td>
+                    <td><?=$row->contact_title?></td>
+                    <td><?=$row->contact_content?></td>
+                </tr>
+            <?}?>
+        </tbody>
+    </table>
+	<?=$this->paginationControl($this->datas,"Sliding","pagination/pagination-control.phtml")?>
+</div>
+<div class="div_box">
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+</div>

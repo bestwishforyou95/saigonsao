@@ -1,0 +1,53 @@
+<?php
+    function timeSpan($time1,$time2){
+        $timespan = (strtotime($time2)-strtotime($time1));
+        if($timespan*(-1)/(60*60*24*30)>1)
+            return round($timespan*(-1)/(60*60*24*30))." tháng trước";
+        else if($timespan*(-1)/(60*60*24)>1)
+            return round($timespan*(-1)/(60*60*24))." ngày trước";
+        else if($timespan*(-1)/(60*60)>1)
+            return round($timespan*(-1)/(60*60))." giờ trước";
+        else if($timespan*(-1)/(60)>1)
+            return round($timespan*(-1)/60)." phút trước";
+        else if($timespan*(-1)>1){
+            return " vài giây trước";
+        }
+    }
+?>
+<div class="md-box md-box-8 float-right">      
+    <div class="box-md">
+		<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><i class="icon-home"></i><span itemprop="title">Trang chủ</span></a></li>
+			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><?=$this->datas->article_title?></span></li>
+		</ol>
+		<hr>
+		<h4 style="font-weight:bolder;">
+			<span style="color: red;"><?=$this->datas->article_title?></span>
+		</h4>
+		<span class="news-timestamp"><b>Vào lúc: </b> <i> <?=date("d/m/Y H:i:s",strtotime($this->datas->article_datecreate));?> ( <?=timeSpan(date("Y/m/d H:i:s",time()),$this->datas->article_datecreate);?>)</i></span>
+		<br/>
+		<br/>
+		<div class="news-content">
+			<div style="text-align: justify;"><?=$this->datas->article_detail?></div>
+		</div>
+		<div class="clear"></div>
+		<div id="fb-root"></div>
+		<script>
+		$(function(){
+			document.getElementById('fbc').innerHTML = "<fb:comments href='"+window.location+"' width='640' num_posts='5'></fb:comments>";
+		});
+		(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		</script>
+		<div>
+			<?php echo $this->disqus('vn-life');?>
+		</div> 
+    </div>  
+</div>
+<div class="clear"></div>
+ 

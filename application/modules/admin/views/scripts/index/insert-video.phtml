@@ -1,0 +1,40 @@
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li><a href="<?=$this->baseUrl("/admin/index/list-video")?>">Quản lý Video</a><span>»</span></li>
+        <li class="current"><a href="#">Thêm Video</a></li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Thêm Video</span>
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+</div>
+
+<div class="div_box">
+    <?=$this->notify?>
+    <?=$this->form?>
+    <div class="img-slide" id="img-video">
+        
+    </div>
+</div>
+<script>
+    $(function(){
+        /* lay id video youtube */
+        //var link_video = "http://www.youtube.com/watch?v=RzI9v_B4sxw";        
+        //var videoid = link_video.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+    
+        $("#article_title").change(function(){
+            var link_video = $(this).val();    
+            var videoid = link_video.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+            document.getElementById("img-video").innerHTML = "<div class='video-1'><object width='220' height='150'><param name='movie' value='https://www.youtube.com/v/"+videoid[1]+"?version=3&amp;hl=en&amp;rel=0'><param name='allowFullScreen' value='true'/><param name='allowscriptaccess' value='always'><embed src='https://www.youtube.com/v/"+videoid[1]+"?version=3&amp;hl=en&amp;rel=0' type='application/x-shockwave-flash' width='220' height='150' allowscriptaccess='always' allowfullscreen='true'></object></div>";
+        });
+                                
+    });
+</script>

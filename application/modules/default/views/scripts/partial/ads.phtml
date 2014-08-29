@@ -1,0 +1,9 @@
+<?php
+    $model = new Application_Model_DbTable_Config();
+    $ads = $model->getAds($this->position);
+?>
+<?php if($ads['status']){?>
+	<div class="<?=$this->position?>">
+		<img src="<?=$this->baseUrl("/")?>timthumb.php?src=<?=$this->baseUrl("/upload/{$ads['value']}")?>&w=170"/>
+	</div>
+<?php }?>

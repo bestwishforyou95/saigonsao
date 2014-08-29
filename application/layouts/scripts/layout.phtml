@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+    <meta charset="utf-8" />
+	<?=$this->headTitle("")?>
+    <link href="<?=$this->baseUrl("/bootstrap/css/bootstrap.min.css")?>" type="text/css" rel="stylesheet" />
+    <?=$this->headLink()?>
+    <link href="<?=$this->baseUrl("/css/style.css")?>" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" href="<?=$this->baseUrl("/img/")?>logo.png" type="image/x-icon"/>
+</head>
+
+<body style="background:url('<?=$this->baseUrl("/upload/{$this->configs['background']['value']}") ?>') <?=!$this->configs['background']['params']['status']?'':'no-repeat top center fixed'?>;">
+    <div id="page_website">
+		<div id="head-menu" class="nav-top">
+			<?php 
+				$auth = Zend_Auth::getInstance();
+				$identity = $auth->getIdentity();
+			?>
+			<ul class="pull-right">
+				<?php if(isset($identity)){?>
+					<li style="font-weight:normal;"><a title="Giỏ hàng" href="#" style="color:brown;font-weight:bolder;"><i class="glyphicon glyphicon-shopping-cart"></i><b>Giỏ hàng</b></a> | </li>
+					<li style="font-weight:normal;">Xin chào <b> <?=$identity->fullname?> </b></li>
+					<li><a title="Thoát khỏi hệ thống" href="<?=$this->baseUrl("/dang-xuat/")?>" style="color: brown;font-weight:bolder;">[Thoát]</a></li>
+				<?php }else{?>
+					<li style="font-weight:normal;"><a title="Giỏ hàng" href="#" style="color:brown;font-weight:bolder;"><i class="glyphicon glyphicon-shopping-cart"></i><b>Giỏ hàng</b></a> | </li>
+					<li style="font-weight:normal;"><a title="Đăng ký" href="<?=$this->baseUrl("/dang-ky/")?>" style="color: brown;font-weight:bolder;"><b>Đăng ký</b></a> | </li>
+					<li style="font-weight:normal;"><a title="Đăng nhập" href="<?=$this->baseUrl("/dang-nhap/")?>" style="color: brown;font-weight:bolder;"><b>Đăng nhập</b></a></li>
+				<?php }?>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+		<div id="head">
+			<div class="logo">
+				<img src="<?=$this->baseUrl("/")?>timthumb.php?src=<?=$this->baseUrl("/upload/{$this->configs['logo']['value']}&w=450&amp;h=100")?>" width="450"/>
+			</div>
+			<img style="float:right; width: 539px; height: 100px" src="<?=$this->baseUrl("/")?>img/contact.gif" width="55%"/>
+			<div class="clearfix"></div>
+		</div>
+		<div class="clearfix"></div>
+        <div id="page_menu">
+			<div class="div_menu">
+				<?=$this->partial("/partial/menu-bar.phtml")?>
+			</div>
+        </div><!--end wrapcontent1-->
+		
+		
+        <div id="wrapmaincontent">
+            <div class="content">
+				<div style="margin:22px 0px;">	
+					<div class="md-box md-box-4 float-left">
+						<?=$this->partial("/partial/sidebar.phtml",array("baseUrl"=>$this->baseUrl("")))?>
+						<?=$this->partial("/partial/hotro.phtml")?>
+						<?=$this->partial("/partial/facebook.phtml")?>
+					</div>				
+					<?=$this->layout()->content;?>
+				</div>
+            </div>     
+        </div><!--end wrapmaincontent-->
+		<div class="clearfix"></div>
+		<div class="slide-footer">
+			<?=$this->partial("/partial/slide-footer.phtml")?>
+		</div>
+		<div class="connect-with-us" style="border-bottom:1px solid #ccc;margin-bottom:5px;padding-bottom:5px">
+			<div class="row">
+				<div class="col-md-8 ui-footer-col-first" style="margin-top:5px;">
+					Kết nối với chúng tôi        				
+					<span id="footer-sociality-share">
+						<a target="_blank" title="Connect with us on facebook" href="https://facebook.com/saigonsao" class="facebook">Facebook</a>
+						<a target="_blank" title="Connect with us on twitter" href="https://twitter.com/saigonsao" class="twitter">Twitter</a>
+						<a target="_blank" title="Connect with us on youtube" href="https://youtube.com/saigonsao" class="youtube">Youtube</a>
+						<a target="_blank" title="Connect with us on google plus" href="https://plus.google.com/+saigonsao" class="plus">Google Plus</a>
+					</span>
+				</div>
+				<div class="col-md-4">
+					<div class="input-group" style="">
+						<input type="text" class="form-control" placeholder="Đăng ký nhận tin (Nhập email của bạn)">
+						<span class="input-group-addon label-danger twhite "><a style="color:white;font-weight:bolder;" onmouseover="this.style.textDecoration='none'" href="#">Send</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="foot" style="">
+			<div class="row">
+				<div class="col-md-6">
+					<?=$this->configs['footer']['value']?>
+				</div>
+				<div class="col-md-3">
+					<h3 style="margin:0px 0px 5px 0px;color:red;font-size:16px;font-weight:bolder;">Hướng dẫn hổ trợ</h3>
+					<ul>
+						<li><a href="<?=$this->baseUrl("/huong-dan-mua-hang/")?>">Hướng dẫn mua hàng</a></li>
+						<li><a href="<?=$this->baseUrl("/giao-hang-mien-phi/")?>">Vận chuyển - Giao hàng</a></li>
+						<li><a href="<?=$this->baseUrl("/phuong-thuc-thanh-toan/")?>">Phương thức thanh toán</a></li>
+						<li><a href="<?=$this->baseUrl("/phuong-thuc-doi-tra-hang/")?>">Phương thức đổi trả hàng</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					<h3 style="margin:0px 0px 5px 0px;color:red;font-size:16px;font-weight:bolder;">Các chính sách</h3>
+					<ul>
+						<li><a href="<?=$this->baseUrl("/chinh-sach-tich-diem/")?>">Chính sách tích điểm</a></li>
+						<li><a href="<?=$this->baseUrl("/chinh-sach-ban-si/")?>">Chính sách bán sĩ</a></li>
+						<li><a href="<?=$this->baseUrl("/chinh-sach-bao-hanh/")?>">Chính sách bảo hành</a></li>
+						<li><a href="<?=$this->baseUrl("/cua-hang-sieu-thi-hop-tac/")?>">Cửa hàng, siêu thị hợp tác</a></li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>			
+		</div>
+		<div class="copy-right">
+			<div class="row">
+				<div class="col-md-3">
+					<embed src="http://s10.histats.com/601.swf"  flashvars="jver=1&acsid=2742477&domi=4"  quality="high"  width="110" height="30" name="601.swf"  align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent" />
+					<img  src="http://sstatic1.histats.com/0.gif?2742477&101" alt="free web tracker" border="0">
+				</div>
+				<div class="col-md-9" style="border-top:1px solid #ccc;text-align:right;font-weight:bolder;padding-top:5px;">
+					Thiết kế bởi : Mrs.Loren - Copyright &copy; 2013 - 2014 : CÔNG TY CỔ PHẦN SÀI GÒN SAO
+				</div>
+			</div>			
+		</div>
+    </div><!--end wrapwebsite-->
+	<div>
+		<?=$this->partial("/partial/ads.phtml",array('position' => "ads-right"))?>
+		<?=$this->partial("/partial/ads.phtml",array('position' => "ads-left"))?>
+	</div>
+    <script src="<?=$this->baseUrl("/js/jquery-1.7.1.min.js")?>" type="text/javascript"></script>  
+    <script src="<?=$this->baseUrl("/bootstrap/js/bootstrap.min.js")?>" type="text/javascript"></script> 
+    <?=$this->headScript()?>
+	<script>
+        $(function(){
+            $("a[href='#']").click(function(){return false;});
+        });
+    </script>
+</body>
+</html>
