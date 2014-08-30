@@ -29,6 +29,8 @@
             <tr class="GridView_TrTitle">
                 <th class="center" style="width: 40px;">STT</th>
                 <th>Tên sản phẩm</th>
+				<th>Giá</th>
+				<th class="center" style="width: 80px;">Ẩn/Hiện Giá</th>
                 <th style="width: 100px;">Người đăng</th>
                 <th class="center" style="width: 130px;">Ngày đăng</th>
                 <th class="center" style="width: 80px;">Trạng thái</th>
@@ -41,6 +43,10 @@
                 <tr>
                     <td class="center"><?=$key+1?></td>
                     <td><?=$row->product_name?></td>
+					<td><?=$row->product_price?></td>
+					<td class="center">
+                        <a class="status-price" rel="<?=$row->product_id?>"><span class="icon icon-color <?=$row->prod_price_status?"icon-close":"icon-check";?>"></span></a>
+                    </td>
                     <td><?=$row->fullname?></td>
                     <td class="center"><?=date("d/m/Y - H:s:i",strtotime($row->product_date))?></td>
                     <td class="center">
@@ -61,7 +67,21 @@
        $(".status").click(function(){
         var id = $(this).attr("rel");
         $.get("<?=$this->baseUrl("/admin/index/status-prods")?>",{idprod:id},function(){},"json");
-       }); 
+       });
+	   $(".status-price").click(function(){
+        var id = $(this).attr("rel");
+		var clickObj = $(this);
+		var iconObject = clickObj.find(".icon");
+        $.get("<?=$this->baseUrl("/admin/index/status-prodsprice")?>",{idprod:id},function(response){
+			if(response == 1){
+				iconObject.removeClass("icon-check");
+				iconObject.addClass("icon-close");
+			}else{
+				iconObject.addClass("icon-check");
+				iconObject.removeClass("icon-close");
+			}
+		},"json");
+       });
        $(".del").click(function(){
             var id = $(this).attr("rel");
             if(confirm("Bạn muốn xóa danh mục này?")){

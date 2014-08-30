@@ -265,7 +265,18 @@ class Admin_IndexController extends Zend_Controller_Action
             $row->save();
             $this->_helper->json->sendJson(true);
         }
-    } 
+    }
+
+	public function statusProdspriceAction(){
+        $idprod = $this->_request->getParam("idprod");
+        if($idprod){
+            $model = new Application_Model_DbTable_Products();
+            $row = $model->find($idprod)->current();
+            $row->prod_price_status?$row->prod_price_status=0:$row->prod_price_status=1;
+            $row->save();
+            $this->_helper->json->sendJson($row->prod_price_status);
+        }
+    }
 	
     /**
      * Delete

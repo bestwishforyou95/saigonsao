@@ -1,7 +1,7 @@
 ﻿<div class="products" style="margin-top:-17px;">
 	<?php
 		$model = new Application_Model_DbTable_Products();
-		$datas = $model->fetchAll($model->getData()->where("product_status=?",1)->order("product_date DESC")->limit(12));
+		$datas = $model->fetchAll($model->getProducts()->where("product_status=?",1)->order("product_date DESC")->limit(12));
 	?>
 	<h2>Sản phẩm mới</h2>
 	<div style="border:1px solid #eee;">
@@ -19,6 +19,11 @@
 				</div>
 				<div class="news-content">
 					<h6><a style="color:red;font-weight:bolder;" href="<?=$this->baseUrl("/san-pham/{$row->product_alias}/")?>"><?=$row->product_name?></a></h6>
+					<?php if($row->prod_price_status == 1){?>
+						<h6><a style="color:black;" href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>">Giá: <?=$row->product_price?></a></h6>
+					<?}else{?>
+						<h6></br><a style="color:black;" href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>"> </a></h6>
+					<?}?>
 					<div class="button">
 						<a href="<?=$this->baseUrl("/san-pham/{$row->product_alias}/")?>" class="btn btn-sm btn-primary bolder">Chi tiết</a>
 						<a class="btn btn-sm btn-danger bolder" rel="331" href="#"><i class="fa fa-plus"></i> Giỏ hàng</a>

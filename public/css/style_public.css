@@ -35,6 +35,7 @@ a{color:#56aaeb;}
 .notify-warning{border: 1px solid #ccc;background: #FF8080;padding:8px 10px;border-radius:3px;text-align: center;}
 .div_command:hover{background:lightblue!important;border:2px solid darkblue;}
 .status:hover{cursor: pointer;}
+.status-price:hover{cursor: pointer;}
 .align-center{text-align:center;}
 .align-left{text-align:left;}
 .align-right{text-align:right;}
