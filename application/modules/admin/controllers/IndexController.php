@@ -569,6 +569,8 @@ class Admin_IndexController extends Zend_Controller_Action
 				$model = new Application_Model_DbTable_Products();
                 $row = $model->createRow($datas);
                 $row->product_name = $datas['product_name'];
+		$row->product_price = $datas['product_price'];
+                $row->product_qty = $datas['product_qty'];
                 $row->product_description = $datas['product_description'];
                 if($form->product_image->isUploaded()){
                     $row->product_image = $datas['thumb'];
@@ -1320,6 +1322,8 @@ class Admin_IndexController extends Zend_Controller_Action
                     }
                 }
                 $row->product_name = $datas['product_name'];
+		$row->product_price = $datas['product_price'];
+                $row->product_qty = $datas['product_qty'];
                 $row->product_alias = $temp;
                 $row->product_description = $datas['product_description'];
                 if($form->product_image->isUploaded()){

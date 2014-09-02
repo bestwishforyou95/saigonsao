@@ -27,6 +27,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini', 'production');
         $router->addConfig($config,'routes');
     }
+    
+    
+    
+    protected function _initCart() {
+        $cart = new Cms_Model_Cart();
+    }
       
 
 }

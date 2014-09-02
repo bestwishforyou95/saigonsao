@@ -29,8 +29,9 @@
             <tr class="GridView_TrTitle">
                 <th class="center" style="width: 40px;">STT</th>
                 <th>Tên sản phẩm</th>
-				<th>Giá</th>
-				<th class="center" style="width: 80px;">Ẩn/Hiện Giá</th>
+                <th>Giá</th>
+                <th class="center" style="width: 80px;">Ẩn/Hiện Giá</th>
+                <th class="center" style="width: 80px;">Số lượng trong kho</th>
                 <th style="width: 100px;">Người đăng</th>
                 <th class="center" style="width: 130px;">Ngày đăng</th>
                 <th class="center" style="width: 80px;">Trạng thái</th>
@@ -43,10 +44,11 @@
                 <tr>
                     <td class="center"><?=$key+1?></td>
                     <td><?=$row->product_name?></td>
-					<td><?=$row->product_price?></td>
-					<td class="center">
+                    <td><?= number_format($row->product_price, 0, ".", ",")?> VNĐ</td>
+                    <td class="center">
                         <a class="status-price" rel="<?=$row->product_id?>"><span class="icon icon-color <?=$row->prod_price_status?"icon-close":"icon-check";?>"></span></a>
                     </td>
+                    <td class="center"><?=$row->product_qty?></td>
                     <td><?=$row->fullname?></td>
                     <td class="center"><?=date("d/m/Y - H:s:i",strtotime($row->product_date))?></td>
                     <td class="center">

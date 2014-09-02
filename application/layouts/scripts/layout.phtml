@@ -16,14 +16,16 @@
 			<?php 
 				$auth = Zend_Auth::getInstance();
 				$identity = $auth->getIdentity();
+                                $cart = new Cms_Model_Cart();
+                                
 			?>
 			<ul class="pull-right">
 				<?php if(isset($identity)){?>
-					<li style="font-weight:normal;"><a title="Giỏ hàng" href="#" style="color:brown;font-weight:bolder;"><i class="glyphicon glyphicon-shopping-cart"></i><b>Giỏ hàng</b></a> | </li>
+                            <li style="font-weight:normal;"><a title="Giỏ hàng" href="<?=$this->baseUrl("/gio-hang/")?>" style="color:brown;font-weight:bolder;"><i class="glyphicon glyphicon-shopping-cart"></i><b> (<?=$cart->countItems()?>) Giỏ hàng</b></a> | </li>
 					<li style="font-weight:normal;">Xin chào <b> <?=$identity->fullname?> </b></li>
 					<li><a title="Thoát khỏi hệ thống" href="<?=$this->baseUrl("/dang-xuat/")?>" style="color: brown;font-weight:bolder;">[Thoát]</a></li>
 				<?php }else{?>
-					<li style="font-weight:normal;"><a title="Giỏ hàng" href="#" style="color:brown;font-weight:bolder;"><i class="glyphicon glyphicon-shopping-cart"></i><b>Giỏ hàng</b></a> | </li>
+					<li style="font-weight:normal;"><a title="Giỏ hàng" href="<?=$this->baseUrl("/gio-hang/")?>" style="color:brown;font-weight:bolder;"><i class="glyphicon glyphicon-shopping-cart"></i><b> (<?=$cart->countItems()?>) Giỏ hàng</b></a> | </li>
 					<li style="font-weight:normal;"><a title="Đăng ký" href="<?=$this->baseUrl("/dang-ky/")?>" style="color: brown;font-weight:bolder;"><b>Đăng ký</b></a> | </li>
 					<li style="font-weight:normal;"><a title="Đăng nhập" href="<?=$this->baseUrl("/dang-nhap/")?>" style="color: brown;font-weight:bolder;"><b>Đăng nhập</b></a></li>
 				<?php }?>
@@ -51,6 +53,7 @@
 					<div class="md-box md-box-4 float-left">
 						<?=$this->partial("/partial/sidebar.phtml",array("baseUrl"=>$this->baseUrl("")))?>
 						<?=$this->partial("/partial/hotro.phtml")?>
+						<?=$this->partial("/partial/search.phtml")?>
 						<?=$this->partial("/partial/facebook.phtml")?>
 					</div>				
 					<?=$this->layout()->content;?>

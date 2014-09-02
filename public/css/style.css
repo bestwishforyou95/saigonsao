@@ -17,7 +17,7 @@ color:#000;
 .media > div{z-index:0;}
 a{color:#56aaeb;}
 /*=================them==========================*/
-.nav-top{padding-left:0px;border-bottom:1px solid #ccc;padding:5px 0px;}
+.nav-top{padding-left:0px;border-bottom:1px solid #ccc;padding:5px 0px;font-size: 15px}
 .nav-top ul{margin-bottom:0px;}
 .nav-top li{display:inline-block;}
 .h-title .title {
@@ -58,6 +58,28 @@ a{color:#56aaeb;}
 	border: 0;
 	border-bottom: 1px solid #e5e5e5;
 }
+.news-wap .details {
+    border: none;
+}
+.news-wap .details legend {
+    border-bottom: none;
+}
+.prod-detail .prod {
+    border: 1px solid #eee;
+}
+.prod-detail .product-excerpt {
+    padding: 30px 0px 20px 0px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 12px;
+    margin-right: 3px;
+}
+.margin {margin-left: 12px;}
+#quantity {width: 70px;float: left;}
+#quantity input {width: 60px;height: 34px;font-size: 15px;}
+#product-add-to-bag {float: left;width: 176px;}
 .sidebar > li > ul a span:hover{color:red;}
 .ads-right{position:fixed;bottom:-16px;right:-20px;width:200px;height: 150px;z-index:9999;}
 .ads-left{position:fixed;top:0px;left:0px;width:170px;z-index:-1;}
@@ -73,7 +95,7 @@ a{color:#56aaeb;}
 	padding:2px;
 	box-shadow:0px 0px 3px #ccc;
 	margin:3px;
-	width: 134px;
+	width: 158px;
 	text-align: center;
 	height: 98px;
 	list-style: none;
@@ -97,6 +119,7 @@ a{color:#56aaeb;}
 	border-radius: 3px;
 	box-shadow: 0px 1px 3px rgba(34, 25, 25, 0.4);
 }
+.table-cart{font-size: 15px}
 .products .product:hover img{opacity:0.5;}
 .products h2{font-size:14px;background:#E60000;margin:0px;padding:10px;color:red;font-weight:bolder;color:#fff;}
 .products > div{padding:5px 0px;}
@@ -114,6 +137,10 @@ a{color:#56aaeb;}
 .side-bar > div.hotrosky .phone p span{color:red;}
 .side-bar > div.hotrosky a span{font-weight:bolder;color:#000;}
 .sidebar h2{font-size:14px;background:#E60000;margin:-1px;padding:10px;color:red;font-weight:bolder;color:#fff;text-transform: uppercase;}
+.side-bar > div.search{padding: 20px 18px;}
+.side-bar > div.search label{font-weight: 600;font-size: 18px;width: 43px;}
+.side-bar > div.search select{height: 27px}
+
 #head{height:100px;}
 #head .logo{width:450px;float:left;}
 #head .logo img{float:left;}

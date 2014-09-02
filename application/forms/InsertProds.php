@@ -22,7 +22,27 @@ class Application_Form_InsertProds extends Zend_Form
                         array("Label",array("tag"=>"div","tagClass"=>"label-dt")),
                         array("HtmlTag",array("tag"=>"div", "class"=>"input" ))
                       ));             
-        $this->addElement($product_name); 
+        $this->addElement($product_name);
+
+	$product_qty = $this->createElement('text','product_qty');
+        $product_qty->setLabel("Số lượng trong kho :")
+                      ->setRequired()
+                      ->setAttrib("class","xlarge")
+                      ->addDecorators(array(
+                        array("Label",array("tag"=>"div","tagClass"=>"label-dt")),
+                        array("HtmlTag",array("tag"=>"div", "class"=>"input" ))
+                      ));             
+        $this->addElement($product_qty);
+        
+        $product_price = $this->createElement('text','product_price');
+        $product_price->setLabel("Giá sản phẩm :")
+                      ->setRequired()
+                      ->setAttrib("class","xlarge")
+                      ->addDecorators(array(
+                        array("Label",array("tag"=>"div","tagClass"=>"label-dt")),
+                        array("HtmlTag",array("tag"=>"div", "class"=>"input" ))
+                      ));             
+        $this->addElement($product_price);
         
         $idcate = $this->createElement('multiselect','idcate');
         $idcate->setLabel("Hiển thị ở mục :")

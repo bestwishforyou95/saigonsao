@@ -9,21 +9,16 @@
 ?>
 <?php if(count($datas) > 0){?>
 	<div class="side-bar">
-		<h2>Hổ trợ trực tuyến</h2>
-		<div class="hotro">
-			<?php foreach($datas as $row){?>
-				<a href="ymsgr:sendim?<?=$row->article_alias?>" mce_href="ymsgr:sendim?<?=$row->article_alias?>" border="0">
-					<img src="http://opi.yahoo.com/online?u=<?=$row->article_alias?>&t=2" mce_src="http://opi.yahoo.com/online?u=<?=$row->article_alias?>&t=2"><br>
-					<span style=""><?=$row->article_title?></br><span style="font-weight:boler;color:red;"><?=$row->article_description?></span></span>
-				</a>
-			<?php }?>
-		</div>
-		<div class="hotrosky">
-			<?php foreach($datasky as $row){?>
-				<a href="Skype:<?=$row->article_alias?>?chat"> <img src="http://mystatus.skype.com/mediumicon/<?=$row->article_alias?>" mce_href="Skype:<?=$row->article_alias?>?chat" title="Admin itviet360" width="120" height="30" alt=""> 
-					<span style=""><?=$row->article_title?></br><span style="font-weight:boler;color:red;"><?=$row->article_description?></span></span>
-				</a>
-			<?php }?>
+		<h2>Tìm kiếm</h2>
+		<div class="search">
+			<label>Giá: </label>
+			<select>
+			  <option select="selected">35,000 - 60,000</option>
+			  <option>60,000 - 100,000</option>
+			  <option>100,000 - 200,000</option>
+			  <option>200,000 - 300,000</option>
+			  <option>300,000 - 500,000</option>
+			</select>
 		</div>
 	</div>
 <?php }?>

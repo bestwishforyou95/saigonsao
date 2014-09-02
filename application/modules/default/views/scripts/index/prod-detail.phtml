@@ -7,19 +7,43 @@
 			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><?=$row->product_name?></span></li>
 		</ol>
 		<div class="news-wap">
-			<fieldset>
-				<legend><h4><?=$row->product_name?></h4></legend>	  
+                    <fieldset class="details">	  
 				<div class="prod-detail">
-					<div class="col-md-5">
+                                    <form action="<?=$this->baseUrl("/gio-hang?act=add&id={$row->product_id}")?>" method="post">
+					<div class="col-md-6 prod">
 						<?php if(is_file($path.$row->product_image)){?>
-							<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/upload/$row->product_image&amp;w=250&amp;h=300")?>" />
+							<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/upload/$row->product_image&amp;w=400&amp;h=550")?>" />
 						<?}else{?>    
-							<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=250&amp;h=300")?>" />
+							<img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=400&amp;h=550")?>" />
 						<?}?>
 					</div>
-					<div class="col-md-7">
-						<?=$row->product_description?>
+					<div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <legend><h3><?=$row->product_name?></h3></legend>
+                                                </div>
+                                                <div class="col-md-7" style="text-align: right">
+                                                    <h3>VNĐ</br><?= number_format($row->product_price, 0, ".", ",")?></h3>
+                                                </div>
+                                            </div>
+                                            <div class="row margin">
+                                                <label>Mô tả: </label></br>
+                                                <p><?=$row->product_description?></p>
+                                            </div>
+                                            <div class="row product-excerpt">
+                                                
+                                            </div>
+                                            <div class="row margin">
+                                                <label style="font-size: 17px">SỐ LƯỢNG ĐẶT MUA</label>
+                                            </div>
+                                            <div class="row margin">
+                                                <div id="quantity"><input type="text" name="qty" value="1"/></div>
+                                                <div id="product-add-to-bag">
+                                                    <input type="submit" class="btn btn-danger" value="MUA SẢN PHẨM"/>
+                                                </div>
+                                            </div>
 					</div>
+                                    </form>
 				</div>
 				<div>
 					<?php echo $this->disqus('vn-life');?>

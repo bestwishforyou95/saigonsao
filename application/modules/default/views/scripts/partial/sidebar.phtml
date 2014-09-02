@@ -12,7 +12,7 @@ function showCategories($url="/", $parentId=0){
 	}
 	foreach($rows as $key=>$row){?>
 		<?php if($parentId==0){?>
-		<li><a style="color:red;font-weight:bolder;background-color: #eee;border-bottom:1px solid #ccc;" href="<?=$url .$row->pcate_alias. "/";?>"><span><?=$row->pcate_name?></span></a>
+		<li><a style="color:red;font-weight:bolder;background-color: #eee;border-bottom:1px solid #ccc;font-size: 13px" href="<?=$url .$row->pcate_alias. "/";?>"><span><?=$row->pcate_name?></span></a>
 			<div>
 				<?php showCategories($url,$row->pcate_id); ?>
 			</div>
