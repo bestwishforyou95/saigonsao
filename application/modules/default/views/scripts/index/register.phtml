@@ -1,91 +1,92 @@
 <div class="md-box md-box-8 float-right"> 
-	<div class="">
-		<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><span itemprop="title"> Trang chủ </span></a></li>
-			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Đăng ký</span></li>
-		</ol> 
-		<div class="news-wap" style="">	
-			<form id="form-contact" class="form-horizontal" action="" method="post">
-			<fieldset class="">
-				<legend><h4>Thông tin đăng nhập</h4></legend>	
-				<div class="">				
-					<?=$this->notify;?>
-					<div class="control-group">
-						<label class="control-label" for="username">Tài khoản <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="<?=$this->username?>" type="text" name="username" id="username" placeholder="Tài khoản"/>
-						</div>
-						<label class="control-label" for="password">Mật khẩu <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="" type="password" name="password" id="password" placeholder="Mật khẩu"/>
-						</div>
-						<label class="control-label" for="rpassword">Nhập lại mật khẩu <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="" type="password" name="rpassword" id="rpassword" placeholder="Nhập lại mật khẩu"/>
-						</div>
-						<label class="control-label" for="email">Email <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="<?=$this->email?>" type="email" name="email" id="email" placeholder="Email"/>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-			</fieldset>
-			<fieldset class="">
-				<legend><h4>Thông tin khách hàng</h4></legend>	
-				<div class="">
-					<div class="control-group">
-						<label class="control-label" for="fullname">Họ tên <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="<?=$this->fullname?>" type="text" name="fullname" id="fullname" placeholder="Tài khoản"/>
-						</div>
-						<label class="control-label" for="address">Địa chỉ <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="<?=$this->address?>" type="text" name="address" id="address" placeholder="Địa chỉ"/>
-						</div>
-						<label class="control-label" for="phone">Điện thoại <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="<?=$this->phone?>" type="text" name="phone" id="phone" placeholder="Điện thoại"/>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-			</fieldset>
-			<fieldset class="">
-				<legend><h4>Thông tin đơn vị</h4></legend>	
-				<div class="">
-					<div class="control-group">
-						<label class="control-label" for="tendonvi">Tên đơn vị <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="<?=$this->tendonvi?>" type="text" name="tendonvi" id="tendonvi" placeholder="Tên đơn vị"/>
-						</div>
-						<label class="control-label" for="diachidonvi">Địa chỉ <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="<?=$this->diachidonvi?>" type="text" name="diachidonvi" id="diachidonvi" placeholder="Địa chỉ"/>
-						</div>
-						<label class="control-label" for="masothue">Mã số thuế <span class="tred">(*)</span></label>
-						<div class="controls">
-							<input class="xxlarge clear" value="<?=$this->masothue?>" type="text" name="masothue" id="masothue" placeholder="Mã số thuế"/>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="captcha"><?php
-								echo $st1 = rand(0,9); echo " + "; echo $st2 = rand(0,9); echo " = ";
-							?></label>
-							<div class="controls">
-								<input class="xxlarge" type="text" name="captcha" id="captcha" placeholder="Kết quả"/>
-								<input type="hidden" id="recaptcha" name="recaptcha" value="<?=$st1+$st2?>" />
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<label class="control-label" for=""><span class="tred"></span></label>
-						<div class="controls">
-							<button type="submit" class="btn" style="background:red;color:white;margin-left:10px;">Đăng ký</button>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-			</fieldset>
-			</form>
-		</div>		
-	</div>
+    <div class="">
+        <ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><span itemprop="title"> Trang chủ </span></a></li>
+                <li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">Đăng ký</span></li>
+        </ol> 
+        <div class="news-wap" style="">	
+            <form id="form-contact" class="form-horizontal" action="" method="post">
+            <fieldset class="">
+                <legend><h4><img src="<?=$this->baseUrl("/")?>img/icon_res.jpg"/> Đăng ký tài khoản</h4></legend>	
+                    <div class="">				
+                        <?=$this->notify;?>
+                        <div class="control-group">
+                                <label class="control-label" for="username">Tên đăng nhập <span class="tred">(*)</span></label>
+                                <div class="controls">
+                                    <input class="xxlarge clear" value="<?=$this->username?>" type="text" name="username" id="username" placeholder="Tài khoản"/>
+                                </div>
+                                <label class="control-label" for="password">Mật khẩu <span class="tred">(*)</span></label>
+                                <div class="controls">
+                                    <input class="xxlarge clear" value="" type="password" name="password" id="password" placeholder="Mật khẩu"/>
+                                </div>
+                                <label class="control-label" for="rpassword">Nhập lại mật khẩu <span class="tred">(*)</span></label>
+                                <div class="controls">
+                                    <input class="xxlarge clear" value="" type="password" name="rpassword" id="rpassword" placeholder="Nhập lại mật khẩu"/>
+                                </div>
+                                <label class="control-label" for="fullname">Họ tên <span class="tred">(*)</span></label>
+                                <div class="controls">
+                                    <input class="xxlarge clear" value="<?=$this->fullname?>" type="text" name="fullname" id="fullname" placeholder="Họ và tên"/>
+                                </div>
+                                <label class="control-label" for="gender">Giới tính <span class="tred">(*)</span></label>
+                                <div class="controls">
+                                    <input class="clear" value="0" type="radio" id="gender" name="gender" checked="checked" style="margin-left: 10px; margin-top: 7px"/> Nam
+                                    <input class="clear" value="1" type="radio" id="gender" name="gender"/> Nữ
+                                </div>
+                                <label class="control-label" for="birthday">Ngày sinh</label>
+                                <div class="controls">
+                                    <input class="input-small clear" value="<?=$this->birthday?>" type="text" name="birthday" id="birthday" placeholder="" style="margin-left: 10px;margin-top: 4px"/>
+                                </div>
+                                <label class="control-label" for="address">Địa chỉ <span class="tred">(*)</span></label>
+                                <div class="controls">
+                                    <input class="xxlarge clear" value="<?=$this->address?>" type="text" name="address" id="address" placeholder="Địa chỉ"/>
+                                </div>
+                                <label class="control-label" for="phone">Điện thoại <span class="tred">(*)</span></label>
+                                <div class="controls">
+                                    <input class="xxlarge clear" value="<?=$this->phone?>" type="text" name="phone" id="phone" placeholder="Điện thoại"/>
+                                </div>
+                                <label class="control-label" for="email">Email <span class="tred">(*)</span></label>
+                                <div class="controls">
+                                    <input class="xxlarge clear" value="<?=$this->email?>" type="email" name="email" id="email" placeholder="Email"/>
+                                </div>
+                                <div class="clearfix"></div>
+                        </div>
+                    </div>
+            </fieldset>
+            <fieldset class="">
+                    <legend><h4>Thông tin đơn vị</h4></legend>	
+                    <div class="">
+                            <div class="control-group">
+                                    <label class="control-label" for="tendonvi">Tên đơn vị <span class="tred">(*)</span></label>
+                                    <div class="controls">
+                                        <input class="xxlarge clear" value="<?=$this->tendonvi?>" type="text" name="tendonvi" id="tendonvi" placeholder="Tên đơn vị"/>
+                                    </div>
+                                    <label class="control-label" for="diachidonvi">Địa chỉ <span class="tred">(*)</span></label>
+                                    <div class="controls">
+                                        <input class="xxlarge clear" value="<?=$this->diachidonvi?>" type="text" name="diachidonvi" id="diachidonvi" placeholder="Địa chỉ"/>
+                                    </div>
+                                    <label class="control-label" for="masothue">Mã số thuế </label>
+                                    <div class="controls">
+                                        <input class="xxlarge clear" value="<?=$this->masothue?>" type="text" name="masothue" id="masothue" placeholder="Mã số thuế"/>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="captcha"><?php
+                                                echo $st1 = rand(0,9); echo " + "; echo $st2 = rand(0,9); echo " = ";
+                                        ?></label>
+                                        <div class="controls">
+                                            <input class="xxlarge" type="text" name="captcha" id="captcha" placeholder="Kết quả"/>
+                                            <input type="hidden" id="recaptcha" name="recaptcha" value="<?=$st1+$st2?>" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <label class="control-label" for=""><span class="tred"></span></label>
+                                    <div class="controls">
+                                        <button type="submit" class="btn" style="background:red;color:white;margin-left:10px;">Đăng ký</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                            </div>
+                    </div>
+            </fieldset>
+            </form>
+        </div>		
+    </div>
 </div>

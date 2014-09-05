@@ -15,8 +15,8 @@ class Application_Model_DbTable_Pcates extends Zend_Db_Table_Abstract
         return $this->fetchAll($select);
 	}
     public function getData($parent = 0){
-		$auth = Zend_Auth::getInstance();
-		$identity = $auth->getIdentity();
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
         $select = $this->select();
         $select->from(array("c"=>"pcates"),array("pcate_name"=>"c.pcate_name","pcate_date"=>"c.pcate_date","pcate_orderhome"=>"c.pcate_orderhome","pcate_homeqty"=>"c.pcate_homeqty","pcate_status"=>"c.pcate_status","pcate_showhome"=>"c.pcate_showhome","pcate_id"=>"c.pcate_id","pcate_alias"=>"c.pcate_alias"))
                ->joinLeft(array("c1"=>"pcates"),"c.pcate_parent=c1.pcate_id",array("parent"=>"c1.pcate_name")) 

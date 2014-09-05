@@ -1,0 +1,116 @@
+﻿<div class="md-box md-box-8 float-right">      
+    <div class="">
+        <ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <li><a itemprop="url" class="home" href="<?= $this->baseUrl("/") ?>"><span itemprop="title"> Trang chủ </span></a></li>
+            <li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><?= $this->pname ?></span></li>
+        </ol>
+        <?php 
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+        ?>
+        <div class="news-wap">
+            <legend style="border-bottom: none"><h4><?= $this->pname ?></h4></legend>	  
+            <div class="news-content">
+                <div class="row customer-review">
+                    <div class="col-md-12">
+                        <h5><strong>THÔNG TIN NGƯỜI MUA</strong></h5>
+                        <div class="well-custom">
+                            <div class="line-customer">
+                                <label class="fl">Họ tên </label>: <?=$identity->fullname?>                                   
+                                <div class="clear"></div>
+                            </div>
+                            <div class="line-customer">
+                                <label class="fl">Điện thoại </label>: <?=$identity->phone?>                             
+                                <div class="clear"></div>
+                            </div>
+                            <div class="line-customer">
+                                <label class="fl">Email </label>: <?=$identity->email?>                                    
+                                <div class="clear"></div>
+                            </div>
+                            <div class="line-customer">
+                                <label class="fl">Địa Chỉ </label>: <?=$identity->address?>                                     
+                                <div class="clear"></div>
+                            </div>
+                            <!--<div class="line-customer">
+                                <label class="fl">Thanh toán qua </label>: Thanh toán khi giao hàng (COD)                                    
+                                <div class="clear"></div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="well-custom">
+                    <h6><strong>Ghi chú đơn hàng:</strong></h6>
+                    <p>adfawf</p>
+                </div>-->
+            </div>
+            <legend style="border-bottom: none"><h4>Sản phẩm đặt mua</h4></legend>
+            <div class="news-content">
+                <input type="hidden" name="id" value="0" />
+                <table class="table table-cart-confirm">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Đơn giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $path = PUBLIC_PATH . "/upload/";
+                        $sums = 0;
+                        if (!empty($this->cartItems)) {
+                            foreach ($this->cartItems as $id => $item) {
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php if (is_file($path . $item->product_image)) { ?>
+                                            <img src="<?= $this->baseUrl("") ?>timthumb.php?src=<?= $this->baseUrl("/upload/$item->product_image&amp;w=90&amp;h=100") ?>" />
+                                        <?php } else { ?>    
+                                            <img src="<?= $this->baseUrl("") ?>timthumb.php?src=<?= $this->baseUrl("/img/no-img.jpg&amp;w=90&amp;h=100") ?>" />
+                                        <?php } ?>
+                                        <h4><?= $item->product_name ?></h4>
+                                    </td>
+                                    <td><?= number_format($item->product_price, 0, ".", ",") ?> VNĐ</td>
+                                    <td>
+                                        <input style="width: 70px;height: 30px;text-align: center" disabled="true" type="text" value="<?=$item->qty?>"/>
+                                    </td>
+                                    <td><?=number_format($item->sum, 0, ".", ",")?> VNĐ</td>
+                                </tr>
+                            <?php }
+                        }else{
+                            ?>
+                                <tr>
+                                    <td colspan="5"><i>Chưa có sản phẩm nào trong giỏ hàng</i></td>
+                                </tr>
+                                <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <div class="cart-total">
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6 cart-total-price">
+                            <div class="row row-total-price">
+                                <div class="col-md-8">
+                                    <strong>Tổng tiền thanh toán </strong></br>
+                                    <span class="text-description-total-price" style="font-size: 11px !important;">(Giá chưa bao gồm thuế)</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="subtotal-price al" style=" font-size: 17px !important; "><span class="price"><?=number_format($this->sums, 0, ".", ",")?></span> VNĐ</div>
+                                </div>
+                            </div>
+                            <div class="row checkout-payment">
+                                <div class="button-checkout ar">
+                                    <a class="btn btn-success float-right" style="margin-right: 15px" href="<?=$this->baseUrl("/")?>"> THANH TOÁN </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="clear"></div>

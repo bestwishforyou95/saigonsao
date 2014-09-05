@@ -224,13 +224,13 @@ class Default_IndexController extends Zend_Controller_Action {
                 if ($result->isValid()) {
                     $store = $auth->getStorage();
                     $store->write($authAdapter->getResultRowObject(array(
-                                "iduser", "username", "groups_id", "fullname", "user_status", "address", "phone", "email", "donvimuahang", "tendonvi", "diachidonvi", "masothue"
+                                "iduser", "username", "groups_id", "fullname", "birthday", "gender", "user_status", "address", "phone", "email", "donvimuahang", "tendonvi", "diachidonvi", "masothue"
                     )));
                     $session = new Zend_Auth_Storage_Session();
                     if (!$session->read()->user_status) {
                         return $this->_redirect("/dang-xuat/");
                     } else {
-                        $this->view->notify = "<div class='alert alert-success'>Đăng nhập thành công !</div>";
+                        return $this->_redirect("/chi-tiet-gio-hang/");
                     }
                 } else {
                     $this->view->notify = "<div class='alert alert-danger'>Tài khoản hoặc mật khẩu không đúng</div>";
@@ -249,37 +249,34 @@ class Default_IndexController extends Zend_Controller_Action {
     }
 
     public function registerAction() {
-
         $this->view->headScript()->appendFile($this->view->baseUrl("/js/jquery.validate.js"));
         $this->view->headScript()->appendScript('
 			$("#form-contact").validate({
 				rules: {
 					username: {required: true,minlength:6,maxlength:20},
 					rpassword: {required: true,equalTo: "#password"},
-					email: {required: true, email: true},
 					fullname: {required: true},
 					address: {required: true},
 					phone: {required: true},
+					email: {required: true, email: true},
 					tendonvi: {required: true},
 					diachidonvi: {required: true},
-					masothue: {required: true},
 					captcha: {required: true,equalTo: "#recaptcha"}
 				},
 				messages: {
 					username: {required: "Không được để trống!",minlength:"Ít nhất 6 ký tự",maxlength:"Nhiều nhất 20 ký tự"},
 					rpassword: {required: "Không được để trống!",equalTo: "Mật khẩu không trùng khớp"},
-					email: {required: "Email không được để trống!",email: "Email không hợp lệ!"},
 					fullname: {required: "Không được để trống!"},
 					address: {required: "Không được để trống!"},
 					phone: {required: "Không được để trống!"},
+					email: {required: "Email không được để trống!",email: "Email không hợp lệ!"},
 					tendonvi: {required: "Không được để trống!"},
 					diachidonvi: {required: "Không được để trống!"},
-					masothue: {required: "Không được để trống!"},
 					captcha: {required: "Chưa nhập kết quả kiểm tra",equalTo: "Kết quả không đúng"}
 				}
 			});
 		');
-        $this->view->notify = '<div class="alert alert-warning">Nếu bạn đã có tài khoản ! Vui lòng <a href="' . $this->view->baseUrl("/dang-nhap/") . '">đăng nhập tại đây</a> </div>';
+        $this->view->notify = '<div class="alert alert-warning" style="font-size: 17px;">Nếu bạn đã có tài khoản ! Vui lòng <a href="' . $this->view->baseUrl("/dang-nhap"). '">đăng nhập tại đây</a> </div>';
         if ($this->_request->isPost()) {
             $datas = $this->_request->getParams();
             unset($datas["module"]);
@@ -305,7 +302,7 @@ class Default_IndexController extends Zend_Controller_Action {
                 $model = new Application_Model_DbTable_Users();
                 $row = $model->createRow($datas);
                 $id = $row->save();
-                $this->view->notify = '<div class="alert alert-success">Đăng ký thành công ! <a href="' . $this->view->baseUrl("/dang-nhap/") . '">Đăng nhập tại đây</a></div>';
+                $this->view->notify = '<div class="alert alert-success" style="font-size: 17px">Đăng ký thành công ! <a href="' . $this->view->baseUrl("/dang-nhap/"). '">Đăng nhập tại đây</a></div>';
             }
         }
     }
@@ -448,20 +445,94 @@ class Default_IndexController extends Zend_Controller_Action {
 
         // Show all of item in cart
         $items = $cart->getItems();
+        $sums = 0;
         foreach ($items as $id => &$item) {
             $prodsModel = new Application_Model_DbTable_Products();
             $prodRow = $prodsModel->getProdsById($id);
             $item->product_name = $prodRow->product_name;
             $item->product_image = $prodRow->product_image;
             $item->product_price = $prodRow->product_price;
+            $item->product_qty = $prodRow->product_qty;
             $item->store_status = "";
+            $item->sum = $item->qty * $item->product_price;
+            $sums += $item->sum;
             if($item->qty > $prodRow->product_qty){
                 $item->store_status = "<p style='color: red; float; left'>Hết hàng</p>"; 
             }
         }
         $this->view->cartItems = $items;
+        $this->view->sums = $sums;
         $flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->view->flashmsgs = $flashMessenger->getMessages();
+    }
+    
+    public function cartDetailAction() {
+        $cart = new Cms_Model_Cart();
+        $this->view->pname = "Thông tin khách hàng";
+        
+        if($this->_request->isPost()){
+            $datas = $this->_request->getParam();
+            
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            
+            $usersModel = new Application_Model_DbTable_Users();
+            $select = $usersModel->getDataId($identity->iduser);
+            $select->fullname = $datas['fullname'];
+            $select->phone = $datas['phone'];
+            $select->email = $datas['email'];
+            $select->address = $datas['address'];
+            $datas['user_id'] = $identity->iduser;
+            $datas['bill_tax_code'] = "";
+            
+            $billsModel = new Application_Model_DbTable_Bills();
+            $row = $billsModel->createRow($datas);
+            $id = $row->save();
+        }
+        
+        $items = $cart->getItems();
+        $sums = 0;
+        foreach ($items as $id => &$item) {
+            $prodsModel = new Application_Model_DbTable_Products();
+            $prodRow = $prodsModel->getProdsById($id);
+            if($item->qty > $prodRow->product_qty){
+                 $cart->deleteItem($id);
+            }else{
+                $item->product_name = $prodRow->product_name;
+                $item->product_image = $prodRow->product_image;
+                $item->product_price = $prodRow->product_price;
+                $item->product_qty = $prodRow->product_qty;
+                $item->sum = $item->qty * $item->product_price;
+                $sums += $item->sum;
+            }
+        }
+        $items = $cart->getItems();
+        $this->view->cartItems = $items;
+        $this->view->sums = $sums;
+    }
+    
+    public function orderConfirmAction() {
+        $cart = new Cms_Model_Cart();
+        $this->view->pname = "Xác nhận đơn hàng";
+        $items = $cart->getItems();
+        $sums = 0;
+        foreach ($items as $id => &$item) {
+            $prodsModel = new Application_Model_DbTable_Products();
+            $prodRow = $prodsModel->getProdsById($id);
+            if($item->qty > $prodRow->product_qty){
+                 $cart->deleteItem($id);
+            }else{
+                $item->product_name = $prodRow->product_name;
+                $item->product_image = $prodRow->product_image;
+                $item->product_price = $prodRow->product_price;
+                $item->product_qty = $prodRow->product_qty;
+                $item->sum = $item->qty * $item->product_price;
+                $sums += $item->sum;
+            }
+        }
+        $items = $cart->getItems();
+        $this->view->cartItems = $items;
+        $this->view->sums = $sums;
     }
 
 }

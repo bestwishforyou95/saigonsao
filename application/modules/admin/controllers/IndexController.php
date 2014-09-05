@@ -161,6 +161,22 @@ class Admin_IndexController extends Zend_Controller_Action
         if($model->fetchAll()->count()==0)
             $this->view->notify = "<td colspan='7' style='text-align:center;'>Không tìm thấy dữ liệu nào !</td>";
     }
+    
+    public function listBillsAction(){
+        $model = new Application_Model_DbTable_Bills();
+        $select = $model->getBills();
+        
+        $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+        $pagination = new Zend_Paginator($adapter);
+        $page = $this->_request->getParam("page",1);
+        $pagination->setCurrentPageNumber($page);
+        $pagination->setItemCountPerPage(10);
+        $this->view->datas = $pagination;
+        
+        if($model->fetchAll()->count()==0)
+            $this->view->notify = "<td colspan='7' style='text-align:center;'>Không tìm thấy dữ liệu nào !</td>";
+    }
+    
     /**
      * Status
     **/
@@ -275,6 +291,17 @@ class Admin_IndexController extends Zend_Controller_Action
             $row->prod_price_status?$row->prod_price_status=0:$row->prod_price_status=1;
             $row->save();
             $this->_helper->json->sendJson($row->prod_price_status);
+        }
+    }
+    
+    public function statusBillsAction(){
+        $idbill = $this->_request->getParam("idbill");
+        if($idbill){
+            $model = new Application_Model_DbTable_Bills();
+            $row = $model->find($idbill)->current();
+            $row->bill_status?$row->bill_status=0:$row->bill_status=1;
+            $row->save();
+            $this->_helper->json->sendJson(true);
         }
     }
 	
@@ -593,6 +620,72 @@ class Admin_IndexController extends Zend_Controller_Action
         }
         $this->view->form = $form;
     }
+    
+    public function insertBillsAction(){
+        $this->view->headScript()->appendFile(
+            $this->view->baseUrl("ckeditor/ckeditor.js")
+        );
+        $form = new Application_Form_InsertBills();
+        if($this->_request->isPost()){
+            if($form->isValid($_POST)){
+                $datas = $form->getValues();
+				$validatorCheckHasId = new Zend_Validate_Db_NoRecordExists(array('table' => 'products','field' => 'product_alias'));
+				$temp = Cms_Filter_String::toAlias($datas['product_name']);
+				
+				if(!$validatorCheckHasId->isValid($temp)){
+					$i = 1;
+					while (!$validatorCheckHasId->isValid($temp . "-" . $i)) {
+						$i++;
+					}
+					$datas['product_alias'] = $temp . "-" . $i;
+				}else{
+					$datas['product_alias'] = $temp;
+				}
+                $images = array();      
+                if($form->product_image->isUploaded()){
+                    $form->product_image->receive();
+                    $filename = APPLICATION_PATH."/../public/upload/".basename($form->product_image->getFilename());
+                    if(file_exists($filename)){
+                        $image = new Cms_File_Image($filename);
+                        $image->setDestinationPath(dirname($filename)."/_thumbs/");
+                        $images['thumb'] = $image->CopyResize("225x165");
+                        $path = APPLICATION_PATH."/../public/upload/";
+                        $images['name'] = $image->newname;                        
+                        rename($path."_thumbs/".$images['thumb'], $path."_thumbs/".$images['name']);
+                        $datas['thumb'] = $images['name'];
+                    }
+                }
+                $auth = Zend_Auth::getInstance();
+                $identity = $auth->getIdentity();
+                
+				$model = new Application_Model_DbTable_Products();
+                $row = $model->createRow($datas);
+                $row->product_name = $datas['product_name'];
+		$row->product_price = $datas['product_price'];
+                $row->product_qty = $datas['product_qty'];
+                $row->product_description = $datas['product_description'];
+                if($form->product_image->isUploaded()){
+                    $row->product_image = $datas['thumb'];
+                    $row->product_thumb = $datas['thumb'];
+                }                
+                $row->product_iduser = $identity->iduser;
+                $id = $row->save();
+                
+                if($id){
+                    if(is_array($datas['idcate'])){
+                        $model1 = new Application_Model_DbTable_PcateHasProd();                        
+                        foreach($datas['idcate'] as $idcate){
+                            $ro = $model1->createRow(array("pcates_idpcate"=>$idcate,"products_idproduct"=>$id));
+                            $ro->save();
+                        }
+                    }                        
+                }
+                $this->view->notify = "<div class='notify-success'>Thêm thành công!</div>";
+            }
+        }
+        $this->view->form = $form;
+    }
+    
     /**
      * Edit
     **/
@@ -1346,5 +1439,91 @@ class Admin_IndexController extends Zend_Controller_Action
         }
         $this->view->form = $form;
     }
+    
+    public function editBillsAction(){
+        $this->view->headScript()->appendFile(
+            $this->view->baseUrl("ckeditor/ckeditor.js")
+        );
+        $id = $this->_request->getParam("id");
+        $form = new Application_Form_InsertBills();
+		$form->submit->setLabel("Cập nhật");
+        $model = new Application_Model_DbTable_Bills();
+        $row = $model->find($id)->current();
+		
+        $m = new Application_Model_DbTable_PcateHasProd();
+        $rs = $m->fetchAll("products_idproduct=$id");
+		$rsArr = array();
+		if($rs->count() > 0)
+			foreach($rs as $r)
+				$rsArr[] = $r->pcates_idpcate;
+        $form->populate($row->toArray());
+        $form->idcate->setValue($rsArr);
+        if($row->product_description==""){
+            $form->product_description->setValue("Đang cập nhật...");
+        }
+        if($this->_request->isPost()){
+            if($form->isValid($_POST)){
+                $datas = $form->getValues();
+				$temp = Cms_Filter_String::toAlias($datas['product_name']);
+				if($temp != "" && $temp != $row->product_alias){
+					$validatorCheckHasId = new Zend_Validate_Db_NoRecordExists(array('table' => 'products','field' => 'product_alias'));
+					$i = 1;
+					while (!$validatorCheckHasId->isValid($temp . "-" . $i)) {
+						$i++;
+					}
+					$temp = $temp . "-" . $i;
+				}       
+				//var_dump($temp);
+                $images = array();      
+                if($form->product_image->isUploaded()){
+                    $form->product_image->receive();
+                    $filename = APPLICATION_PATH."/../public/upload/".basename($form->product_image->getFilename());
+                    if(file_exists($filename)){
+                        $image = new Cms_File_Image($filename);
+                        $image->setDestinationPath(dirname($filename)."/_thumbs/");
+                        $images['thumb'] = $image->CopyResize("225x165");
+                        $path = APPLICATION_PATH."/../public/upload/";
+                        $images['name'] = $image->newname;                        
+                        rename($path."_thumbs/".$images['thumb'], $path."_thumbs/".$images['name']);
+                        $datas['thumb'] = $images['name'];
+                    }
+                    if($row->product_image){
+                        $path = APPLICATION_PATH."/../public/upload/";
+                        if(is_file($path."/".$row->product_image))
+                        {
+                            unlink($path."/".$row->product_image);
+                        }
+                        if(is_file($path."/_thumbs/".$row->product_thumb))
+                        {
+                            unlink($path."/_thumbs/".$row->product_thumb);
+                        }
+                    }
+                }
+                $row->product_name = $datas['product_name'];
+		$row->product_price = $datas['product_price'];
+                $row->product_qty = $datas['product_qty'];
+                $row->product_alias = $temp;
+                $row->product_description = $datas['product_description'];
+                if($form->product_image->isUploaded()){
+                    $row->product_image = $datas['thumb'];
+                    $row->product_thumb = $datas['thumb'];
+                }               
+                $row->save();
+                
+                if($id){
+                    $m->delete("products_idproduct=".$id);
+                    if(is_array($datas['idcate'])){                       
+                        foreach($datas['idcate'] as $idcate){
+                            $ro = $m->createRow(array("pcates_idpcate"=>$idcate,"products_idproduct"=>$id));
+                            $ro->save();
+                        }
+                    }                        
+                }
+                //$this->redirect("/admin/index/list-prods");
+            }
+        }
+        $this->view->form = $form;
+    }
+    
 }
 

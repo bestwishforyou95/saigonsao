@@ -1,0 +1,102 @@
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li class="current"><a href="#">Quản lý đơn hàng</a></li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Quản lý đơn hàng</span>
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-bills")?>" title="Thêm mới">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>
+<div class="div_box">
+    <table id="GridView_TblMain" class="GridView_TblMain" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+            <tr class="GridView_TrTitle">
+                <th class="center" style="width: 30px;">STT</th>
+                <th style="width: 170px;">Tên KH</th>
+                <th class="center" style="width: 70px;">Tình trạng</th>
+                <th class="center" style="width: 95px;">Tổng tiền</th>
+                <th class="center" style="width: 80px;">Ngày ĐH</th>
+                <th class="center" style="width: 80px;">Ngày GH</th>
+                <th class="center" style="width: 70px;">Thanh toán</th>
+                <th class="center" style="width: 180px;">Địa chỉ GH</th>
+                <th class="center" style="width: 80px;">Điện thoại GH</th>
+                <th class="center" style="width: 80px;">Mã số thuế</th>
+                <th class="center" style="width: 105px;">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?=$this->notify?>
+            <?foreach($this->datas as $key=>$row){?>
+                <tr>
+                    <td class="center"><?=$key+1?></td>
+                    <td><?=$row->bill_xname?></td>
+                    <td class="center">
+                        <a class="status" rel="<?=$row->bill_id?>"><span class="icon icon-color <?=$row->bill_status?"icon-check":"icon-close";?>"></span></a>
+                    </td>
+                    <td class="center"><?=  number_format($row->bill_total_money, 0,".",",")?> VNĐ</td>
+                    <td class="center"><?=date("d/m/Y - H:s:i",strtotime($row->bill_idate))?></td>
+                    <td class="center"><?=date("d/m/Y - H:s:i",strtotime($row->bill_xdate))?></td>
+                    <td class="center"><?=$row->bill_type_pay?></td>
+                    <td class="center"><?=$row->bill_xaddress?></td>
+                    <td class="center"><?=$row->bill_xphone?></td>
+                    <td class="center"><?=$row->bill_tax_code?></td>
+                    <td class="center">
+                        <a href="<?=$this->baseUrl("/admin/index/edit-bills/id/$row->bill_id")?>"><i class="icon-edit"></i>Sửa</a> | 
+                        <a href="#" rel="<?=$row->bill_id?>" class="del"><i class="icon-trash"></i>Xóa</a>
+                    </td>
+                </tr>
+            <?}?>                
+        </tbody>
+    </table>
+    <?=$this->paginationControl($this->datas,"Sliding","pagination/pagination-control.phtml")?>
+</div>
+<script>
+    $(function(){
+       $(".status").click(function(){
+        var id = $(this).attr("rel");
+        $.get("<?=$this->baseUrl("/admin/index/status-bills")?>",{idbill:id},function(){},"json");
+       });
+	   
+       $(".del").click(function(){
+            var id = $(this).attr("rel");
+            if(confirm("Bạn muốn xóa danh mục này?")){
+                $(this).parent("td").parent("tr").remove();
+                $.get("<?=$this->baseUrl("admin/index/del-prods")?>",{idprod:id},function(){},"json");
+            }            
+       });
+    });
+</script>
+<div class="div_box">
+    <a href="javascript:window.history.back();" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+    <a href="<?=$this->baseUrl("/admin/index/insert-prods")?>" title="Thêm mới">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/Add.png.gif"/>
+			</div>
+			<p class="p_command_text">Thêm mới</p>
+		</div>
+	</a>
+</div>

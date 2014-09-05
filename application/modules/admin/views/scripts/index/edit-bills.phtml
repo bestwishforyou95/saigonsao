@@ -1,0 +1,23 @@
+<div class="div_box">
+    <ul class="ul_path">
+        <li><a href="#">Quản lý chung</a><span>»</span></li>
+        <li><a href="<?=$this->baseUrl("/admin/index/list-prods")?>">Quản lý sản phẩm</a><span>»</span></li>
+        <li class="current"><a href="#">Cập nhật sản phẩm</a></li>
+    </ul>
+</div>
+<div class="div_box">
+    <span class="span_tieude">Cập nhật sản phẩm/span>
+    <a href="<?=$this->baseUrl("/admin/index/list-prods")?>" title="Trở về trang trước">
+		<div class="div_command">
+			<div class="div_command_icon">
+				<img src="<?=$this->baseUrl("/img")?>/back.png"/>
+			</div>
+			<p class="p_command_text">Trở về</p>
+		</div>
+	</a>
+</div>
+
+<div class="div_box">
+    <?=$this->notify?>
+    <?=$this->form?>
+</div>
