@@ -28,29 +28,38 @@
         <thead>
             <tr class="GridView_TrTitle">
                 <th class="center" style="width: 40px;">STT</th>
-                <th>Tên sản phẩm</th>
-                <th>Giá</th>
+                <th style="width: 90px">Tên sản phẩm</th>
+                <th class="center" style="width: 80px">Hình</th>
+                <th class="center" style="width: 120px">Giá</th>
                 <th class="center" style="width: 80px;">Ẩn/Hiện Giá</th>
-                <th class="center" style="width: 80px;">Số lượng trong kho</th>
+                <th class="center" style="width: 70px;">Số lượng trong kho</th>
                 <th style="width: 100px;">Người đăng</th>
-                <th class="center" style="width: 130px;">Ngày đăng</th>
+                <th class="center" style="width: 70px;">Ngày đăng</th>
                 <th class="center" style="width: 80px;">Trạng thái</th>
                 <th class="center" style="width: 90px;">Thao tác</th>
             </tr>
         </thead>
         <tbody>
             <?=$this->notify?>
-            <?foreach($this->datas as $key=>$row){?>
+            <?php $path = PUBLIC_PATH . "/upload/";
+                foreach($this->datas as $key=>$row){?>
                 <tr>
                     <td class="center"><?=$key+1?></td>
                     <td><?=$row->product_name?></td>
-                    <td><?= number_format($row->product_price, 0, ".", ",")?> VNĐ</td>
+                    <td>
+                        <?php if (is_file($path . $row->product_image)) { ?>
+                            <img src="<?= $this->baseUrl("") ?>timthumb.php?src=<?= $this->baseUrl("/upload/$row->product_image&amp;w=70&amp;h=80") ?>" />
+                        <?php } else { ?>    
+                            <img src="<?= $this->baseUrl("") ?>timthumb.php?src=<?= $this->baseUrl("/img/no-img.jpg&amp;w=90&amp;h=100") ?>" />
+                        <?php } ?>
+                    </td>
+                    <td class="center"><?= number_format($row->product_price, 0, ".", ",")?> VNĐ</td>
                     <td class="center">
                         <a class="status-price" rel="<?=$row->product_id?>"><span class="icon icon-color <?=$row->prod_price_status?"icon-close":"icon-check";?>"></span></a>
                     </td>
                     <td class="center"><?=$row->product_qty?></td>
                     <td><?=$row->fullname?></td>
-                    <td class="center"><?=date("d/m/Y - H:s:i",strtotime($row->product_date))?></td>
+                    <td class="center"><?=date("d/m/Y  H:s:i",strtotime($row->product_date))?></td>
                     <td class="center">
                         <a class="status" rel="<?=$row->product_id?>"><span class="icon icon-color <?=$row->product_status?"icon-close":"icon-check";?>"></span></a>
                     </td>
@@ -70,7 +79,7 @@
         var id = $(this).attr("rel");
         $.get("<?=$this->baseUrl("/admin/index/status-prods")?>",{idprod:id},function(){},"json");
        });
-	   $(".status-price").click(function(){
+        $(".status-price").click(function(){
         var id = $(this).attr("rel");
 		var clickObj = $(this);
 		var iconObject = clickObj.find(".icon");

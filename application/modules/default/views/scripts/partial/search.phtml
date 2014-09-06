@@ -1,24 +1,27 @@
-<?php
-    $model = new Application_Model_DbTable_Articles();
-    $select = $model->select();
-    $select->where("article_type=?","hotro")->where("article_status=?",1);
-    $datas = $model->fetchAll($select);
-	$selectsky = $model->select();
-	$selectsky->where("article_type=?","hotrosky")->where("article_status=?",1);
-	$datasky = $model->fetchAll($selectsky);
-?>
-<?php if(count($datas) > 0){?>
-	<div class="side-bar">
-		<h2>Tìm kiếm</h2>
-		<div class="search">
-			<label>Giá: </label>
-			<select>
-			  <option select="selected">35,000 - 60,000</option>
-			  <option>60,000 - 100,000</option>
-			  <option>100,000 - 200,000</option>
-			  <option>200,000 - 300,000</option>
-			  <option>300,000 - 500,000</option>
-			</select>
-		</div>
-	</div>
-<?php }?>
+<div class="side-bar">
+        <h2>Tìm kiếm</h2>
+        <form id="form" action="<?=$this->baseUrl("/tim-kiem-san-pham")?>" method="post">
+            <div class="search">
+                <label>Loại SP:</label>
+                <select onchange="$('#form').submit()" name="product_type" id="product_type">
+                  <option <?=($this->product_type=="Balô")?"selected='selected'":""?> value="Balô">Balô</option>
+                  <option <?=($this->product_type=="Cặp")?"selected='selected'":""?> value="Cặp">Cặp</option>
+                  <option <?=($this->product_type=="Túi xách")?"selected='selected'":""?> value="Túi xách">Túi xách</option>
+                  <option <?=($this->product_type=="Đồng phục")?"selected='selected'":""?> value="Đồng phục">Đồng phục</option>
+                  <option <?=($this->product_type=="Nón")?"selected='selected'":""?> value="Nón">Nón</option>
+                  <option <?=($this->product_type=="Áo mưa")?"selected='selected'":""?> value="Áo mưa">Áo mưa</option>
+                  <option <?=($this->product_type=="Vali - Túi Trống")?"selected='selected'":""?> value="Vali - Túi Trống">Vali - Túi Trống</option>
+                  <option <?=($this->product_type=="Túi vải không dệt")?"selected='selected'":""?> value="Túi vải không dệt">Túi vải không dệt</option>
+                  <option <?=($this->product_type=="Đồng hồ - SP ép PVC")?"selected='selected'":""?> value="Đồng hồ - SP ép PVC">Đồng hồ - SP ép PVC</option>
+                </select>
+                <label>Giá:</label>
+                <select name="product_price">
+                  <option select="selected">35,000 - 60,000</option>
+                  <option>60,000 - 100,000</option>
+                  <option>100,000 - 200,000</option>
+                  <option>200,000 - 300,000</option>
+                  <option>300,000 - 500,000</option>
+                </select>
+            </div>
+        </form>
+</div>

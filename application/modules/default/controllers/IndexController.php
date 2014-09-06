@@ -276,7 +276,7 @@ class Default_IndexController extends Zend_Controller_Action {
 				}
 			});
 		');
-        $this->view->notify = '<div class="alert alert-warning" style="font-size: 17px;">Nếu bạn đã có tài khoản ! Vui lòng <a href="' . $this->view->baseUrl("/dang-nhap"). '">đăng nhập tại đây</a> </div>';
+        $this->view->notify = '<div class="alert alert-warning" style="font-size: 17px;">Nếu bạn đã có tài khoản ! Vui lòng <a href="' . $this->view->baseUrl("/dang-nhap") . '">đăng nhập tại đây</a> </div>';
         if ($this->_request->isPost()) {
             $datas = $this->_request->getParams();
             unset($datas["module"]);
@@ -302,7 +302,7 @@ class Default_IndexController extends Zend_Controller_Action {
                 $model = new Application_Model_DbTable_Users();
                 $row = $model->createRow($datas);
                 $id = $row->save();
-                $this->view->notify = '<div class="alert alert-success" style="font-size: 17px">Đăng ký thành công ! <a href="' . $this->view->baseUrl("/dang-nhap/"). '">Đăng nhập tại đây</a></div>';
+                $this->view->notify = '<div class="alert alert-success" style="font-size: 17px">Đăng ký thành công ! <a href="' . $this->view->baseUrl("/dang-nhap/") . '">Đăng nhập tại đây</a></div>';
             }
         }
     }
@@ -407,6 +407,25 @@ class Default_IndexController extends Zend_Controller_Action {
         $pagination->setItemCountPerPage(12);
         $this->view->datas = $pagination;
     }
+    
+    public function searchProductsAction() {
+        $this->view->headLink()->appendStylesheet($this->view->baseUrl("/") . "css/style_public.css");
+        $this->view->product_type  = $product_type = $this->_request->getParam("product_type", "Balô");
+        //var_dump($product_type);
+        $model = new Application_Model_DbTable_Products();
+        $select = $model->getProducts()
+                ->where("product_status=?", 1)
+                ->where(
+                    "product_type=?", $product_type
+                )->order("product_date DESC");
+
+        $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+        $pagination = new Zend_Paginator($adapter);
+        $page = $this->_request->getParam("page");
+        $pagination->setCurrentPageNumber($page);
+        $pagination->setItemCountPerPage(12);
+        $this->view->datas = $pagination;
+    }
 
     public function cartListAction() {
         $cart = new Cms_Model_Cart();
@@ -444,7 +463,7 @@ class Default_IndexController extends Zend_Controller_Action {
         }
 
         // Show all of item in cart
-        $items = $cart->getItems();
+        $items = (array) $cart->getItems();
         $sums = 0;
         foreach ($items as $id => &$item) {
             $prodsModel = new Application_Model_DbTable_Products();
@@ -456,8 +475,8 @@ class Default_IndexController extends Zend_Controller_Action {
             $item->store_status = "";
             $item->sum = $item->qty * $item->product_price;
             $sums += $item->sum;
-            if($item->qty > $prodRow->product_qty){
-                $item->store_status = "<p style='color: red; float; left'>Hết hàng</p>"; 
+            if ($item->qty > $prodRow->product_qty) {
+                $item->store_status = "<p style='color: red; float; left'>Hết hàng</p>";
             }
         }
         $this->view->cartItems = $items;
@@ -465,74 +484,76 @@ class Default_IndexController extends Zend_Controller_Action {
         $flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->view->flashmsgs = $flashMessenger->getMessages();
     }
-    
+
     public function cartDetailAction() {
         $cart = new Cms_Model_Cart();
-        $this->view->pname = "Thông tin khách hàng";
-        
-        if($this->_request->isPost()){
-            $datas = $this->_request->getParam();
-            
-            $auth = Zend_Auth::getInstance();
-            $identity = $auth->getIdentity();
-            
-            $usersModel = new Application_Model_DbTable_Users();
-            $select = $usersModel->getDataId($identity->iduser);
-            $select->fullname = $datas['fullname'];
-            $select->phone = $datas['phone'];
-            $select->email = $datas['email'];
-            $select->address = $datas['address'];
-            $datas['user_id'] = $identity->iduser;
-            $datas['bill_tax_code'] = "";
-            
-            $billsModel = new Application_Model_DbTable_Bills();
-            $row = $billsModel->createRow($datas);
-            $id = $row->save();
-        }
-        
-        $items = $cart->getItems();
-        $sums = 0;
-        foreach ($items as $id => &$item) {
+        if (!$cart->isEmty()) {
+            $this->view->pname = "Thông tin khách hàng";
             $prodsModel = new Application_Model_DbTable_Products();
-            $prodRow = $prodsModel->getProdsById($id);
-            if($item->qty > $prodRow->product_qty){
-                 $cart->deleteItem($id);
-            }else{
-                $item->product_name = $prodRow->product_name;
-                $item->product_image = $prodRow->product_image;
-                $item->product_price = $prodRow->product_price;
-                $item->product_qty = $prodRow->product_qty;
-                $item->sum = $item->qty * $item->product_price;
-                $sums += $item->sum;
-            }
+            $items = $prodsModel->loadProductDataToCart();
+            $sums = $cart->sumPriceCart();
+            $customer = $cart->getCustomerInfo();
+            $this->view->customerInfo = $customer;
+            $this->view->cartItems = $items;
+            $this->view->sums = $sums;
+        } else {
+            return $this->_redirect("/gio-hang");
         }
-        $items = $cart->getItems();
-        $this->view->cartItems = $items;
-        $this->view->sums = $sums;
+        $flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->view->flashmsgs = $flashMessenger->getMessages();
     }
-    
+
     public function orderConfirmAction() {
         $cart = new Cms_Model_Cart();
-        $this->view->pname = "Xác nhận đơn hàng";
-        $items = $cart->getItems();
-        $sums = 0;
-        foreach ($items as $id => &$item) {
-            $prodsModel = new Application_Model_DbTable_Products();
-            $prodRow = $prodsModel->getProdsById($id);
-            if($item->qty > $prodRow->product_qty){
-                 $cart->deleteItem($id);
-            }else{
-                $item->product_name = $prodRow->product_name;
-                $item->product_image = $prodRow->product_image;
-                $item->product_price = $prodRow->product_price;
-                $item->product_qty = $prodRow->product_qty;
-                $item->sum = $item->qty * $item->product_price;
-                $sums += $item->sum;
+        if (!$cart->isEmty()) {
+            if ($this->_request->isPost()) {
+                $datas = $this->_request->getParams();
+                $cart->addCustomerInfo($datas);
             }
+
+            $this->view->pname = "Xác nhận đơn hàng";
+            $customer = $cart->getCustomerInfo();
+            foreach ($customer as $key => $value) {
+                if ($value == "" && $key != "bill_notes" &&$key != "bill_total_money") {
+                    $flashMessenger = $this->_helper->getHelper('FlashMessenger');
+                    $flashMessenger->addMessage("Vui lòng nhập các thông tin bắt buộc.");
+                    return $this->_redirect("/chi-tiet-gio-hang");
+                }
+            }
+
+            $prodsModel = new Application_Model_DbTable_Products();
+            $items = $prodsModel->loadProductDataToCart();
+            $sums = $cart->sumPriceCart();
+            $this->view->customerInfo = $customer;
+            $this->view->cartItems = $items;
+            $this->view->sums = $sums;
+        } else {
+            return $this->_redirect("/gio-hang");
+            
         }
-        $items = $cart->getItems();
-        $this->view->cartItems = $items;
-        $this->view->sums = $sums;
+        
+    }
+    
+    public function orderCompleteAction() {
+        $this->view->pname = "Hoàn tất đơn hàng";
+        $cart = new Cms_Model_Cart();
+        if(!$cart->isEmty()){
+            $customer = (array)$cart->getCustomerInfo();
+            $billsModel = new Application_Model_DbTable_Bills();
+            $row = $billsModel->createRow($customer);
+            $id = $row->save();
+            $items = $cart->getItems();
+            foreach ($items as $idprod => $item) {
+                $bills_detail = new Application_Model_DbTable_BillsDetail();
+                $datas = array("bill_id"=>$id,
+                                "product_id"=>$idprod,
+                                "quantity"=>$item->qty
+                );
+                $row = $bills_detail->createRow($datas);
+                $id = $row->save();
+            }
+            $cart->emtyCart();
+        }
     }
 
 }

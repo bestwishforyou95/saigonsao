@@ -7,10 +7,6 @@
         <div class="news-wap">
             <fieldset>
                 <legend><h4><?= $this->pname ?></h4></legend>
-                <?php 
-                    $auth = Zend_Auth::getInstance();
-                    $identity = $auth->getIdentity();
-                ?>
                 <div class="news-content">
                     <?php if (!empty($this->flashmsgs)) { ?>
                         <div class="alert alert-success">
@@ -37,7 +33,6 @@
                         <tbody>
                             <?php
                             $path = PUBLIC_PATH . "/upload/";
-                            $sums = 0;
                             if (!empty($this->cartItems)) {
                                 foreach ($this->cartItems as $id => $item) {
                                     ?>
@@ -74,7 +69,7 @@
                     </table>
                     <div class="btn-group pull-right">
                         <input class="btn btn-primary" type="submit" value="CẬP NHẬT GIỎ HÀNG"/>
-                        <a class="btn btn-success" href="<?php if(!isset($identity)){echo $this->baseUrl("/dang-ky");}else{echo $this->baseUrl("/chi-tiet-gio-hang");}?>"><i class="glyphicon glyphicon-play"></i> THANH TOÁN</a>
+                        <a class="btn btn-success" href="<?php echo $this->baseUrl("/chi-tiet-gio-hang");?>"><i class="glyphicon glyphicon-play"></i> THANH TOÁN</a>
                     </div>
                     </form>
                 </div>			

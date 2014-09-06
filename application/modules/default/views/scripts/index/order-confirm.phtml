@@ -4,44 +4,41 @@
             <li><a itemprop="url" class="home" href="<?= $this->baseUrl("/") ?>"><span itemprop="title"> Trang chủ </span></a></li>
             <li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><?= $this->pname ?></span></li>
         </ol>
-        <?php 
-            $auth = Zend_Auth::getInstance();
-            $identity = $auth->getIdentity();
-        ?>
+        <?php $customer = $this->customerInfo; ?>
         <div class="news-wap">
-            <legend style="border-bottom: none"><h4><?= $this->pname ?></h4></legend>	  
+            <legend style="border-bottom: none"><h4><?=$this->pname?></h4></legend>	  
             <div class="news-content">
                 <div class="row customer-review">
                     <div class="col-md-12">
                         <h5><strong>THÔNG TIN NGƯỜI MUA</strong></h5>
                         <div class="well-custom">
                             <div class="line-customer">
-                                <label class="fl">Họ tên </label>: <?=$identity->fullname?>                                   
+                                <label class="fl">Họ tên </label>: <?=$customer->fullname?>                                   
                                 <div class="clear"></div>
                             </div>
                             <div class="line-customer">
-                                <label class="fl">Điện thoại </label>: <?=$identity->phone?>                             
+                                <label class="fl">Điện thoại </label>: <?=$customer->phone?>                             
                                 <div class="clear"></div>
                             </div>
                             <div class="line-customer">
-                                <label class="fl">Email </label>: <?=$identity->email?>                                    
+                                <label class="fl">Email </label>: <?=$customer->email?>                                    
                                 <div class="clear"></div>
                             </div>
                             <div class="line-customer">
-                                <label class="fl">Địa Chỉ </label>: <?=$identity->address?>                                     
+                                <label class="fl">Địa Chỉ </label>: <?=$customer->address?>                                     
                                 <div class="clear"></div>
                             </div>
-                            <!--<div class="line-customer">
-                                <label class="fl">Thanh toán qua </label>: Thanh toán khi giao hàng (COD)                                    
+                            <div class="line-customer">
+                                <label class="fl">Thanh toán qua </label>: <?=$customer->bill_type_pay?>
                                 <div class="clear"></div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!--<div class="well-custom">
+                <div class="well-custom">
                     <h6><strong>Ghi chú đơn hàng:</strong></h6>
-                    <p>adfawf</p>
-                </div>-->
+                    <p><?=$customer->bill_notes?></p>
+                </div>
             </div>
             <legend style="border-bottom: none"><h4>Sản phẩm đặt mua</h4></legend>
             <div class="news-content">
@@ -103,7 +100,7 @@
                             </div>
                             <div class="row checkout-payment">
                                 <div class="button-checkout ar">
-                                    <a class="btn btn-success float-right" style="margin-right: 15px" href="<?=$this->baseUrl("/")?>"> THANH TOÁN </a>
+                                    <a class="btn btn-success float-right" style="margin-right: 15px" href="<?=$this->baseUrl("/hoan-tat-don-hang")?>"> THANH TOÁN </a>
                                 </div>
                             </div>
                         </div>

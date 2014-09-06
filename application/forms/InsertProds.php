@@ -56,8 +56,26 @@ class Application_Form_InsertProds extends Zend_Form
         foreach($cates as $cate){
             $idcate->addMultiOption($cate['key'],$cate['value']);
         }
-        //$idcate->setValue(1);             
         $this->addElement($idcate);
+        
+        $product_type = $this->createElement('select', 'product_type');
+        $product_type->setLabel("Thuộc loại :")
+                    ->setAttribs(array("class"=>"xlarge","rows"=>10))
+                    ->addDecorators(array(
+                        array("Label",array("tag"=>"div","tagClass"=>"label-dt")),
+                        array("HtmlTag", array("tag"=>"div","class"=>"input"))
+                    ));
+        $product_type->addMultiOption('Balô','Balô');
+        $product_type->addMultiOption('Cặp','Cặp');
+        $product_type->addMultiOption('Túi xách','Túi xách');
+        $product_type->addMultiOption('Đồng phục','Đồng phục');
+        $product_type->addMultiOption('Nón','Nón');
+        $product_type->addMultiOption('Áo mưa','Áo mưa');
+        $product_type->addMultiOption('Vali - Túi trống','Vali - Túi trống');
+        $product_type->addMultiOption('Túi vải không dệt','Túi vải không dệt');
+        $product_type->addMultiOption('Đồng hồ - SP ép PVC','Đồng hồ - SP ép PVC');
+        $this->addElement($product_type);
+        
         
         $product_image = $this->createElement('file','product_image');
         $product_image->setLabel("Hình ảnh :")

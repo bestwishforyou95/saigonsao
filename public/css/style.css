@@ -43,6 +43,15 @@ a{color:#56aaeb;}
 .table-cart thead tr{height: 40px;background-color: #eee;}
 .table-payment{border: 1px solid #ccc}
 .table-payment thead tr{height: 40px;background-color: #eee;}
+.table-payment .btn{border-radius: 4px}
+.table-payment .btn-success{
+    background-color: white;
+    color: green;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
 .cart-total {
     padding: 30px 0px;
     border-top: 3px solid #000;
@@ -180,23 +189,23 @@ a{color:#56aaeb;}
 .side-bar > div.hotrosky .phone p span{color:red;}
 .side-bar > div.hotrosky a span{font-weight:bolder;color:#000;}
 .sidebar h2{font-size:14px;background:#E60000;margin:-1px;padding:10px;color:red;font-weight:bolder;color:#fff;text-transform: uppercase;}
-.side-bar > div.search{padding: 20px 18px;}
-.side-bar > div.search label{font-weight: 600;font-size: 18px;width: 43px;}
-.side-bar > div.search select{height: 27px}
+.side-bar > div.search{padding: 20px 10px;}
+.side-bar > div.search label{font-weight: 600;font-size: 18px;width: 70px;margin-top: 5px}
+.side-bar > div.search select{height: 27px;width: 140px;margin-left: 15px;margin-top: 5px}
 
 #head{height:100px;}
 #head .logo{width:450px;float:left;}
 #head .logo img{float:left;}
-/*.nav>li>a:hover{border-left:5px solid red;margin-left:-1px;margin-bottom:-1px;padding-left:11px!important;}*/
 .sidebar.nav>li:hover > a, .sidebar.nav>li > a.active
 {
-	background: url(images/arrow_right.gif) no-repeat 227px 13px;
+	background: url(images/arrow_right.gif) no-repeat 237px 15px;
 	border-left: 5px #0E76BC solid;
 	color: #D8052B;
 	font-weight: bold;
 	text-decoration: none;
 	padding-left:12px!important;
 }
+.sidebar ul li{list-style: none}
 .nav > li {margin-top: 2px;position:relative;}
 .nav > li > div > ul{display:none;right:-160px;top:-1px;position:absolute;z-index:99999;background:#fff;border:1px solid #ccc;border-left:2px #0E76BC solid; padding-left:0px; width: 160px}
 .nav > li > div > ul > li{
@@ -368,8 +377,8 @@ ul.sub{position:absolute;}
 .md-box .watch-related ul{padding:10px;}
 .float-left{float:left;}
 .float-right{float:right;}
-.md-box-8{width:77%;}
-.md-box-4{width:21%;}
+.md-box-8{width:76%;}
+.md-box-4{width:22%;}
 .img-box{box-shadow: 0px 0px 3px #ccc;padding:5px;} 
 .margin-right{margin-right:10px;}
 .film-info > div{line-height:28px;}

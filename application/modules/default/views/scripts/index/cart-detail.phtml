@@ -4,12 +4,18 @@
             <li><a itemprop="url" class="home" href="<?= $this->baseUrl("/") ?>"><span itemprop="title"> Trang chủ </span></a></li>
             <li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><?= $this->pname ?></span></li>
         </ol>
-        <?php 
-            $auth = Zend_Auth::getInstance();
-            $identity = $auth->getIdentity();
-        ?>
         <div class="news-wap">
-            <form action="" method="post" name="form_customer" id="form_customer">
+            <form action="<?= $this->baseUrl("/xac-nhan-don-hang/") ?>" method="post" name="form_customer" id="form_customer">
+                <?php $identity = $this->customerInfo;?>
+                <?php if (!empty($this->flashmsgs)) { ?>
+                        <div class="alert alert-warning">
+                            <ul>
+                                <?php foreach ($this->flashmsgs as $message) { ?>
+                                    <li><?php echo $message; ?></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                <?php } ?>
                 <legend style="border-bottom: none"><h4><?= $this->pname ?></h4></legend>	  
                 <div class="news-content">
                     <table class="table table-customer">
@@ -26,46 +32,46 @@
                                         <div class="control-group">
                                             <label class="control-label" for="fullname">Họ tên <span class="tred">(*)</span></label>
                                             <div class="controls">
-                                                <input class="small clear" value="<?=$identity->fullname?>" type="text" name="fullname" id="fullname" placeholder="Họ và tên"/>
+                                                <input class="small clear" value="<?= $identity->fullname ?>" type="text" name="fullname" id="fullname" placeholder="Họ và tên"/>
                                             </div>
                                             <label class="control-label" for="phone">Điện thoại <span class="tred">(*)</span></label>
                                             <div class="controls">
-                                                <input class="small clear" value="<?=$identity->phone?>" type="text" name="phone" id="phone" placeholder="Điện thoại"/>
+                                                <input class="small clear" value="<?= $identity->phone ?>" type="text" name="phone" id="phone" placeholder="Điện thoại"/>
                                             </div>
                                             <label class="control-label" for="email">Email <span class="tred">(*)</span></label>
                                             <div class="controls">
-                                                <input class="small clear" value="<?=$identity->email?>" type="email" name="email" id="email" placeholder="Email"/>
+                                                <input class="small clear" value="<?= $identity->email ?>" type="email" name="email" id="email" placeholder="Email"/>
                                             </div>
                                             <label class="control-label" for="address">Địa chỉ <span class="tred">(*)</span></label>
                                             <div class="controls">
-                                                <input class="small clear" value="<?=$identity->address?>" type="text" name="address" id="address" placeholder="Địa chỉ"/>
+                                                <input class="small clear" value="<?= $identity->address ?>" type="text" name="address" id="address" placeholder="Địa chỉ"/>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="info-receive" style="margin-left: 10px;display: none">
+                                    <!--<div class="info-receive" style="margin-left: 10px;display: none">
                                         <div class="control-group">
                                             <label class="control-label" for="fullname">Họ tên <span class="tred">(*)</span></label>
                                             <div class="controls">
-                                                <input class="small clear" value="<?=$identity->fullname?>" type="text" name="fullname" id="fullname" placeholder="Họ và tên"/>
+                                                <input class="small clear" value="<?= $identity->fullname ?>" type="text" name="fullname" id="fullname" placeholder="Họ và tên"/>
                                             </div>
                                             <label class="control-label" for="phone">Điện thoại <span class="tred">(*)</span></label>
                                             <div class="controls">
-                                                <input class="small clear" value="<?=$identity->phone?>" type="text" name="phone" id="phone" placeholder="Điện thoại"/>
+                                                <input class="small clear" value="<?= $identity->phone ?>" type="text" name="phone" id="phone" placeholder="Điện thoại"/>
                                             </div>
                                             <label class="control-label" for="email">Email <span class="tred">(*)</span></label>
                                             <div class="controls">
-                                                <input class="small clear" value="<?=$identity->email?>" type="email" name="email" id="email" placeholder="Email"/>
+                                                <input class="small clear" value="<?= $identity->email ?>" type="email" name="email" id="email" placeholder="Email"/>
                                             </div>
                                             <label class="control-label" for="address">Địa chỉ <span class="tred">(*)</span></label>
                                             <div class="controls">
-                                                <input class="small clear" value="<?=$identity->address?>" type="text" name="address" id="address" placeholder="Địa chỉ"/>
+                                                <input class="small clear" value="<?= $identity->address ?>" type="text" name="address" id="address" placeholder="Địa chỉ"/>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </td>
                             </tr>
                             <tr>
@@ -100,19 +106,21 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><img src="<?=$this->baseUrl("/")?>img/pay-cod.jpg"/></td>
+                                <td><img src="<?= $this->baseUrl("/") ?>img/pay-cod.jpg"/></td>
                                 <td>Thanh toán khi giao hàng</td>
                                 <td></td>
                                 <td>
-                                    <input checked="checked" type="radio" value="1" name="bill_type_pay">
+                                    <label for="bill_type_pay_1"  class="btn btn-success"><i class="glyphicon glyphicon-ok" style="width: 10px"></i> &nbsp;&nbsp;Chọn</label>
+                                    <input id="bill_type_pay_1" class="select-pay hidden" checked="checked" type="radio" value="Thanh toán khi giao hàng" name="bill_type_pay">
                                 </td>
                             </tr>
                             <tr>
-                                <td><img src="<?=$this->baseUrl("/")?>img/pay-bank.jpg"/></td>
+                                <td><img src="<?= $this->baseUrl("/") ?>img/pay-bank.jpg"/></td>
                                 <td>Chuyển khoản ngân hàng</td>
                                 <td></td>
                                 <td>
-                                    <input type="radio" value="0" name="bill_type_pay">
+                                    <label  for="bill_type_pay_2" class="btn btn-success"><i class="glyphicon" style="width: 10px"></i> &nbsp;&nbsp;Chọn</label>
+                                    <input id="bill_type_pay_2" type="radio" class="select-pay hidden" value="Chuyển khoản ngân hàng" name="bill_type_pay">
                                 </td>
                             </tr>
                         </tbody>
@@ -134,7 +142,6 @@
                     <tbody>
                         <?php
                         $path = PUBLIC_PATH . "/upload/";
-                        $sums = 0;
                         if (!empty($this->cartItems)) {
                             foreach ($this->cartItems as $id => $item) {
                                 ?>
@@ -149,17 +156,18 @@
                                     </td>
                                     <td><?= number_format($item->product_price, 0, ".", ",") ?> VNĐ</td>
                                     <td>
-                                        <input style="width: 70px;height: 30px;text-align: center" disabled="true" type="text" value="<?=$item->qty?>"/>
+                                        <input style="width: 70px;height: 30px;text-align: center" disabled="true" type="text" value="<?= $item->qty ?>"/>
                                     </td>
-                                    <td><?=number_format($item->sum, 0, ".", ",")?> VNĐ</td>
-                                </tr>
-                            <?php }
-                        }else{
-                            ?>
-                                <tr>
-                                    <td colspan="5"><i>Chưa có sản phẩm nào trong giỏ hàng</i></td>
+                                    <td><?= number_format($item->sum, 0, ".", ",") ?> VNĐ</td>
                                 </tr>
                                 <?php
+                            }
+                        } else {
+                            ?>
+                            <tr>
+                                <td colspan="5"><i>Chưa có sản phẩm nào trong giỏ hàng</i></td>
+                            </tr>
+                            <?php
                         }
                         ?>
                     </tbody>
@@ -174,12 +182,12 @@
                                     <span class="text-description-total-price" style="font-size: 11px !important;">(Giá chưa bao gồm thuế)</span>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="subtotal-price al" style=" font-size: 17px !important; "><span class="price"><?=number_format($this->sums, 0, ".", ",")?></span> VNĐ</div>
+                                    <div class="subtotal-price al" style=" font-size: 17px !important; "><span class="price"><?= number_format($this->sums, 0, ".", ",") ?></span> VNĐ</div>
                                 </div>
                             </div>
                             <div class="row checkout-payment">
                                 <div class="button-checkout ar">
-                                    <a class="btn btn-success float-right" style="margin-right: 15px" href="<?=$this->baseUrl("/xac-nhan-don-hang/")?>"><i class="glyphicon glyphicon-play"></i> TIẾP TỤC THANH TOÁN</a>
+                                    <a class="btn btn-success float-right" style="margin-right: 15px" onclick="$('#form_customer').submit()"><i class="glyphicon glyphicon-play"></i> TIẾP TỤC THANH TOÁN</a>
                                 </div>
                             </div>
                         </div>
@@ -190,3 +198,15 @@
     </div> 
 </div>
 <div class="clear"></div>
+<?php
+$script = <<< EOJS
+    $(function(){
+        $(".select-pay").change(function(){
+            $(".select-pay").prev().children().removeClass("glyphicon-ok");
+            $(this).prev().children().addClass("glyphicon-ok");
+        });
+    })
+EOJS;
+
+$this->headScript()->appendScript($script);
+?>

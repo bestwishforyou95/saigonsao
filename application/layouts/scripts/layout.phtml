@@ -53,7 +53,7 @@
 					<div class="md-box md-box-4 float-left">
 						<?=$this->partial("/partial/sidebar.phtml",array("baseUrl"=>$this->baseUrl("")))?>
 						<?=$this->partial("/partial/hotro.phtml")?>
-						<?=$this->partial("/partial/search.phtml")?>
+						<?=$this->partial("/partial/search.phtml", array("product_type"=>$this->product_type))?>
 						<?=$this->partial("/partial/facebook.phtml")?>
 					</div>				
 					<?=$this->layout()->content;?>

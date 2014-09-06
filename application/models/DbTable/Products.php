@@ -42,4 +42,22 @@ class Application_Model_DbTable_Products extends Zend_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 
+    public function loadProductDataToCart() {
+        $cart = new Cms_Model_Cart();
+        $items = $cart->getItems();
+        foreach ($items as $id => &$item) {
+            $prodRow = $this->getProdsById($id);
+            if ($item->qty > $prodRow->product_qty) {
+                $cart->deleteItem($id);
+            } else {
+                $item->product_name = $prodRow->product_name;
+                $item->product_image = $prodRow->product_image;
+                $item->product_price = $prodRow->product_price;
+                $item->product_qty = $prodRow->product_qty;
+                $item->sum = $item->qty * $item->product_price;
+            }
+        }
+        return $cart->getItems();
+    }
+
 }
