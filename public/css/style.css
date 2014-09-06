@@ -189,9 +189,9 @@ a{color:#56aaeb;}
 .side-bar > div.hotrosky .phone p span{color:red;}
 .side-bar > div.hotrosky a span{font-weight:bolder;color:#000;}
 .sidebar h2{font-size:14px;background:#E60000;margin:-1px;padding:10px;color:red;font-weight:bolder;color:#fff;text-transform: uppercase;}
-.side-bar > div.search{padding: 20px 10px;}
-.side-bar > div.search label{font-weight: 600;font-size: 18px;width: 70px;margin-top: 5px}
-.side-bar > div.search select{height: 27px;width: 140px;margin-left: 15px;margin-top: 5px}
+.side-bar div.search{padding: 20px 10px;}
+.side-bar div.search label{font-weight: 600;font-size: 18px;width: 70px;margin-top: 5px}
+.side-bar div.search select{height: 27px;width: 140px;margin-left: 15px;margin-top: 5px}
 
 #head{height:100px;}
 #head .logo{width:450px;float:left;}
