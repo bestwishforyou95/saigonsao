@@ -1,9 +1,71 @@
 <?php
-    $model = new Application_Model_DbTable_Config();
+    /*$model = new Application_Model_DbTable_Config();
     $ads = $model->getAds($this->position);
 ?>
 <?php if($ads['status']){?>
 	<div class="<?=$this->position?>">
 		<img src="<?=$this->baseUrl("/")?>timthumb.php?src=<?=$this->baseUrl("/upload/{$ads['value']}")?>&w=170"/>
 	</div>
-<?php }?>
+<?php }*/?>
+
+<div id="hotlinedef" style="height: 152px;"> 
+    <div id="hotline-1"> 
+        <div id="hotline-2"> 
+            <div id="title"> 
+                <ul id="btn-hide-show"> 
+                    <li id="btnhide"><a class="min" href="javascript:btnclickhide();" title="Ẩn đi"><i class="glyphicon glyphicon-remove" style="font-size: 15px"></i></a></li> 
+                    <li id="btnshow" style="display: none;"><a class="max" href="javascript:btnclickshow();" title="Hiện lại"><i class="glyphicon glyphicon-minus" style="font-size: 20px"></i></a></li> 
+                </ul>
+                <div style="float: right">Hotline - Sai Gon Sao &nbsp;&nbsp;&nbsp;&nbsp;</div>
+            </div> 
+            <div id="hotline-content">
+                <a target="_blank" href="http://www.saigonsao.com.vn" rel="nofollow"> 
+                    <img style="margin:3px 1px 1px 3px;" border="0" width="264" src="<?=$this->baseUrl("/images/hotlinedef.gif")?>" height="115" title="Sai Gon Sao">
+                </a>       
+            </div> 
+        </div>
+    </div>
+
+<?php
+$script = <<< EOJS
+    hotlinebottomLayer = document.getElementById('hotlinedef'); 
+    var hotlineIntervalId = 0; 
+    var hotlinemaxHeight = 150;//Chieu cao khung quang cao 
+    var hotlineminHeight = 27; 
+    var hotlinecurHeight = 0; 
+    function btnshow( ){ 
+      hotlinecurHeight += 2; 
+      if (hotlinecurHeight > hotlinemaxHeight){ 
+        clearInterval ( hotlineIntervalId ); 
+      } 
+      hotlinebottomLayer.style.height = hotlinecurHeight+'px'; 
+    } 
+    function btnhide( ){ 
+      hotlinecurHeight -= 3; 
+      if (hotlinecurHeight < hotlineminHeight){ 
+        clearInterval ( hotlineIntervalId ); 
+      } 
+      hotlinebottomLayer.style.height = hotlinecurHeight+'px'; 
+    } 
+    hotlineIntervalId = setInterval ( 'btnshow()', 5 ); 
+    function btnclickhide(){ 
+        document.getElementById('btnhide').style.display='none'; 
+        document.getElementById('btnshow').style.display='inline'; 
+        hotlineIntervalId = setInterval ( 'btnhide()', 5 ); 
+    } 
+    function btnclickshow(){ 
+        document.getElementById('btnhide').style.display='inline'; 
+        document.getElementById('btnshow').style.display='none'; 
+        hotlineIntervalId = setInterval ( 'btnshow()', 5 ); 
+    } 
+    function hotlineclickclose(){ 
+        document.body.style.marginBottom = '0px'; 
+        hotlinebottomLayer.style.display = 'none'; 
+    }
+EOJS;
+
+$this->headScript()->appendScript($script);
+?>
+ 
+         
+        

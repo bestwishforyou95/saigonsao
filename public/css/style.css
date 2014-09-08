@@ -133,7 +133,61 @@ a{color:#56aaeb;}
 #quantity input {width: 60px;height: 34px;font-size: 15px;}
 #product-add-to-bag {float: left;width: 176px;}
 .sidebar > li > ul a span:hover{color:red;}
-.ads-right{position:fixed;bottom:-16px;right:-20px;width:200px;height: 150px;z-index:9999;}
+#hotlinedef {
+    font: 12px Arial, Helvetica, sans-serif;
+    color: #666;
+    position: fixed;
+    _position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 150px;
+    z-index: 100;
+}
+#hotline-1 {
+    width: 279px;
+    padding-right: 7px;
+    background: url(http://img98.imageshack.us/img98/9400/rightp.gif) no-repeat right top;
+}
+#title {
+    color: #690;
+    display: block;
+    height: 27px;
+    line-height: 20px;
+    font-size: 12px;
+    width: 277px;
+}
+#title a {
+    color: #690;
+    text-decoration: none;
+}
+#btn-hide-show {
+    float: right;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow: hidden;
+    height: 27px;
+}
+#btn-hide-show li a.min {
+    background-position: -30px 0;
+}
+#btn-hide-show li a {   
+    width: 30px;
+    height: 0;
+    float: left;
+}
+#hotline-content {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 123px;
+    /*border-style: solid;
+    border-width: 1px;
+    border-color: #111 #999 #999 #111;*/
+    line-height: 1.6em;
+    overflow: hidden;
+}
+
 .ads-left{position:fixed;top:0px;left:0px;width:170px;z-index:-1;}
 .news-item{border-bottom:1px solid #ccc;border-top:1px solid #ccc;padding:10px 0px;}
 .news-item img{float:left;margin-right:10px;box-shadow:0px 0px 3px #ccc;padding:2px;border:1px solid #ccc;}
@@ -178,16 +232,10 @@ a{color:#56aaeb;}
 .side-bar h2{font-size:14px;background:#E60000;margin:-1px;padding:10px;color:red;font-weight:bolder;color:#fff;}
 .side-bar{border: 1px solid lightgrey;margin-top: 5px;}
 .sidebar{border:1px solid lightgrey;}
-.side-bar > div.hotro{padding:20px 40px;text-align:center;}
-.side-bar > div.hotro .phone p{font-weight:bolder;}
-.side-bar > div.hotro .phone p span{color:red;}
-.side-bar > div.hotro a span{font-weight:bolder;color:#000;}
+.side-bar > div.hotro{padding:20px 32px;text-align:center;}
+.side-bar > div.hotro .content{}
 
 
-.side-bar > div.hotrosky{padding:20px 40px;text-align:center;}
-.side-bar > div.hotrosky .phone p{font-weight:bolder;}
-.side-bar > div.hotrosky .phone p span{color:red;}
-.side-bar > div.hotrosky a span{font-weight:bolder;color:#000;}
 .sidebar h2{font-size:14px;background:#E60000;margin:-1px;padding:10px;color:red;font-weight:bolder;color:#fff;text-transform: uppercase;}
 .side-bar div.search{padding: 20px 10px;}
 .side-bar div.search label{font-weight: 600;font-size: 18px;width: 70px;margin-top: 5px}

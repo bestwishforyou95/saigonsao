@@ -410,8 +410,7 @@ class Default_IndexController extends Zend_Controller_Action {
     
     public function searchProductsAction() {
         $this->view->headLink()->appendStylesheet($this->view->baseUrl("/") . "css/style_public.css");
-        $this->view->product_type  = $product_type = $this->_request->getParam("product_type");
-        //var_dump($product_type);
+        $this->view->product_type  = $product_type = $this->_request->getParam("product_type","Balô");
         $model = new Application_Model_DbTable_Products();
         $select = $model->getProducts()
                 ->where("product_status=?", 1)

@@ -107,9 +107,9 @@
 							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/edit-ads-left')){?>
 								<li><a href="<?=$this->baseUrl("/admin/index/edit-ads-left")?>">Quảng cáo trái<span>Chỉnh sửa quảng cáo bên trái</span></a></li>
 							<?php }?>
-							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/edit-ads-right')){?>
+							<?php /*if($acl->isAllowed($identity->groups_id, 'admin/index/edit-ads-right')){?>
 								<li><a href="<?=$this->baseUrl("/admin/index/edit-ads-right")?>">Quảng cáo phải<span>Chỉnh sửa quảng cáo bên phải</span></a></li>
-							<?php }?>
+							<?php }*/?>
 							<?php if($acl->isAllowed($identity->groups_id, 'admin/index/list-hotro')){?>
 								<li><a href="<?=$this->baseUrl("/admin/index/list-hotro")?>">Hỗ trợ trực tuyến<span>Thiết lập thông tin hỗ trợ khách hàng yahoo</span></a></li>
 							<?php }?>

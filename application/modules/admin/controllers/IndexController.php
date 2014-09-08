@@ -880,7 +880,7 @@ class Admin_IndexController extends Zend_Controller_Action {
         $this->view->form = $form;
     }
 
-    public function editAdsRightAction() {
+    /*public function editAdsRightAction() {
         $form = new Application_Form_ConfigAdsLeft();
         $model = new Application_Model_DbTable_Config();
         $row = $model->find(13)->current();
@@ -923,7 +923,7 @@ class Admin_IndexController extends Zend_Controller_Action {
             }
         }
         $this->view->form = $form;
-    }
+    }*/
 
     public function editLogoAction() {
         $form = new Application_Form_Config();
