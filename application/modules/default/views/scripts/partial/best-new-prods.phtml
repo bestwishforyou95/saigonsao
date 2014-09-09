@@ -1,7 +1,7 @@
 ﻿<div class="products" style="margin-top:-17px;">
 	<?php
 		$model = new Application_Model_DbTable_Products();
-		$datas = $model->fetchAll($model->getProducts()->where("product_status=?",1)->order("product_date DESC")->limit(12));
+		$datas = $model->fetchAll($model->getProducts()->where("product_status=?",1)->order("product_date DESC")->limit(16));
 	?>
 	<h2>Sản phẩm mới</h2>
 	<div style="border:1px solid #eee;">
