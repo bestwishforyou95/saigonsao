@@ -12,12 +12,12 @@ function showCategories($url="/", $parentId=0){
 	}
 	foreach($rows as $key=>$row){?>
 		<?php if($parentId==0 && $row->pcate_id!=1){?>
-                    <li><a style="color:red;font-weight:bolder;background-color: #eee;border-bottom:1px solid #ccc;font-size: 16px" href="<?=$url .$row->pcate_alias. "/";?>"><span><?=$row->pcate_name?></span></a>
+                    <li><a style="color: brown;font-weight:bolder;background-color: #eee;border-bottom:1px solid #ccc;font-size: 16px" href="<?=$url .$row->pcate_alias. "/";?>"><span><?=$row->pcate_name?></span></a>
                     <div>
                         <?php showCategories($url,$row->pcate_id); ?>
                     </div>
                 <?php }elseif ($parentId==0 && $row->pcate_id==1) {?>
-                            <li class="parent1"><a style="color:red;font-weight:bolder;background-color: #eee;border-bottom:1px solid #ccc;font-size: 16px" href="<?=$url .$row->pcate_alias. "/";?>"><span><?=$row->pcate_name?></span></a>
+                            <li class="parent1"><a style="color:brown;font-weight:bolder;background-color: #eee;border-bottom:1px solid #ccc;font-size: 16px" href="<?=$url .$row->pcate_alias. "/";?>"><span><?=$row->pcate_name?></span></a>
                             <?php showCategories($url,$row->pcate_id); ?>
                         <?php }elseif ($parentId==1) {?>
                             <li style="width: 239px;margin-left: -40px;height: 30px;padding-left: 20px;padding-top: 5px;font-size: 13px;"><span style="font-size: 12px">>> &nbsp;&nbsp;</span><a style="color:#000;font-weight:bolder;" href="<?=$url .$row->pcate_alias. "/";?>"><span><?=$row->pcate_name?></span></a>

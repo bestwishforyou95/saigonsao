@@ -1,0 +1,82 @@
+﻿<div class="md-box md-box-8 float-right">      
+    <div class="">
+		<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<li><a itemprop="url" class="home" href="<?=$this->baseUrl("/")?>"><span itemprop="title"> Trang chủ </span></a></li>
+			<li class="active" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title"><?=$this->pname?></span></li>
+		</ol>
+		<div class="news-wap">
+			<fieldset>
+				<legend><h4><?=$this->pname?></h4></legend>	  
+				<div class="news-content">
+                                    <div class="MN">
+                                        <h4>KHÁCH HÀNG MẦM NON</h4>
+					<div class="products">
+					<?php $path = PUBLIC_PATH."/upload/"; foreach($this->datas as $row){?>
+						<div class="product col-xs-3 col-sm-3">
+                                                    <div>
+                                                        <div class="image-news" style="">
+                                                                <a href="<?=$this->baseUrl("/")?>">
+                                                                <?php if(is_file($path.$row->article_image)){?>
+                                                                        <img src="<?=$this->baseUrl("/")?>timthumb.php?src=<?=$this->baseUrl("upload/{$row->article_image}&w129&h=95")?>" />
+                                                                <?}else{?>    
+                                                                        <img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=150&amp;h=170")?>" />
+                                                                <?}?>   
+                                                                </a>       
+                                                        </div>
+                                                    </div>  
+						</div>
+					<?}?>
+					<div class="clearfix"></div>
+					</div>
+                                    </div>
+                                    <div class="TH-TH">
+                                        <h4>KHÁCH HÀNG TIỂU HỌC - TRUNG HỌC</h4>
+					<div class="products">
+					<?php $path = PUBLIC_PATH."/upload/"; foreach($this->datas as $row){?>
+						<div class="product col-xs-3 col-sm-3">
+                                                    <div>
+                                                        <div class="image-news" style="">
+                                                                <a href="<?=$this->baseUrl("/")?>">
+                                                                <?php if(is_file($path.$row->article_image)){?>
+                                                                        <img src="<?=$this->baseUrl("/")?>timthumb.php?src=<?=$this->baseUrl("upload/{$row->article_image}&w129&h=95")?>" />
+                                                                <?}else{?>    
+                                                                        <img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=150&amp;h=170")?>" />
+                                                                <?}?>   
+                                                                </a>       
+                                                        </div>
+                                                    </div>  
+						</div>
+					<?}?>
+					<div class="clearfix"></div>
+					</div>
+                                    </div>
+                                    <div class="CT-DN">
+                                        <h4>KHÁCH HÀNG CÔNG TY - DOANH NGHIỆP</h4>
+					<div class="products">
+					<?php $path = PUBLIC_PATH."/upload/"; foreach($this->datas as $row){?>
+						<div class="product col-xs-3 col-sm-3">
+                                                    <div>
+                                                        <div class="image-news" style="">
+                                                                <a href="<?=$this->baseUrl("/")?>">
+                                                                <?php if(is_file($path.$row->article_image)){?>
+                                                                        <img src="<?=$this->baseUrl("/")?>timthumb.php?src=<?=$this->baseUrl("upload/{$row->article_image}&w129&h=95")?>" />
+                                                                <?}else{?>    
+                                                                        <img src="<?=$this->baseUrl("")?>timthumb.php?src=<?=$this->baseUrl("/img/no-img.jpg&amp;w=150&amp;h=170")?>" />
+                                                                <?}?>   
+                                                                </a>       
+                                                        </div>
+                                                    </div>  
+						</div>
+					<?}?>
+					<div class="clearfix"></div>
+					</div>
+                                    </div>
+				</div>			
+			</fieldset>
+        </div>
+    </div> 
+</div>
+<div class="clear"></div>
+
+
+

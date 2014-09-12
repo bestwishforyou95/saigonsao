@@ -8,17 +8,21 @@
 	<div class="side-bar">
 		<h2>Hổ trợ trực tuyến</h2>
 		<div class="hotro">
+                    <span style="font-size: 15px;color: brown;font-weight: bolder">* Bộ phận kinh doanh - CSKH</span>
 			<?php foreach($datas as $row){?>
-                            <div>
+                            <!--<div>
                                 <a href="Skype:<?=$row->article_detail?>?chat" style="float: left"> 
                                     <img src="http://mystatus.skype.com/mediumicon/<?=$row->article_detail?>" mce_href="Skype:<?=$row->article_detail?>?chat" title="" width="50" height="30" alt="">
 				</a>
 				<a href="ymsgr:sendim?<?=$row->article_alias?>" mce_href="ymsgr:sendim?<?=$row->article_alias?>" border="0">
                                     <img src="http://opi.yahoo.com/online?u=<?=$row->article_alias?>&t=2" mce_src="http://opi.yahoo.com/online?u=<?=$row->article_alias?>&t=2"></br>
 				</a>
-                            </div>
-                            <div style="width: 355px;padding-right: 170px;padding-bottom: 15px;padding-top: 5px;"><?=$row->article_title?> - <span style="font-weight:boler;color:red;"><?=$row->article_description?></span></div>
+                            </div>-->
+                            <div style="font-size: 13px;width: 355px;padding-right: 170px;padding-bottom: 15px;padding-top: 5px;">&nbsp;&nbsp;&nbsp;<?=$row->article_title?>: <span style="font-weight:boler;color:red;"><?=$row->article_description?></span></div>
 			<?php }?>
+                            <span style="font-size: 15px; color: brown;font-weight: bolder">* Giải quyết khiếu nại</span>
+                            <div style="font-size: 13px;width: 355px;padding-right: 170px;padding-bottom: 15px;padding-top: 5px;">&nbsp;&nbsp;&nbsp;Ms. Hiền: <span style="font-weight:boler;color:red;">0932.649.268</span></div>
+                            <div style="font-size: 13px;width: 355px;padding-right: 170px;padding-bottom: 15px;padding-top: 5px;">&nbsp;&nbsp;&nbsp;Ms. Dung: <span style="font-weight:boler;color:red;">0932.649.268</span></div>
 		</div>
 	</div>
 <?php }?>

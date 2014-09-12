@@ -19,6 +19,7 @@
                                 $cart = new Cms_Model_Cart();
                                 
 			?>
+                        <p style="margin-left: 30px;color: brown;font-style: italic" class="pull-left">Cám ơn Quý khách hàng đã cho chúng tôi cơ hội được phục vụ!</p>
 			<ul class="pull-right">
 				<?php if(isset($identity)){?>
                             <li style="font-weight:normal;"><a title="Giỏ hàng" href="<?=$this->baseUrl("/gio-hang/")?>" style="color:brown;font-weight:bolder;"><i class="glyphicon glyphicon-shopping-cart"></i><b> (<?=$cart->countItems()?>) Giỏ hàng</b></a> | </li>
@@ -34,7 +35,7 @@
 		</div>
 		<div id="head">
 			<div class="logo">
-				<img src="<?=$this->baseUrl("/")?>timthumb.php?src=<?=$this->baseUrl("/upload/{$this->configs['logo']['value']}&w=450&amp;h=100")?>" width="450"/>
+				<img src="<?=$this->baseUrl("/img/logo.gif")?>" width="550"/>
 			</div>
 			<img style="float:right; width: 539px; height: 100px" src="<?=$this->baseUrl("/")?>img/contact.gif" width="55%"/>
 			<div class="clearfix"></div>
@@ -54,34 +55,31 @@
 						<?=$this->partial("/partial/sidebar.phtml",array("baseUrl"=>$this->baseUrl("")))?>
 						<?=$this->partial("/partial/search.phtml", array("product_type"=>$this->product_type))?>
                                                 <?=$this->partial("/partial/hotro.phtml")?>
-						<?=$this->partial("/partial/facebook.phtml")?>
+						<?=$this->partial("/partial/connect.phtml")?>
 					</div>				
 					<?=$this->layout()->content;?>
 				</div>
             </div>     
         </div><!--end wrapmaincontent-->
 		<div class="clearfix"></div>
-		<div class="slide-footer">
-			<?=$this->partial("/partial/slide-footer.phtml")?>
-		</div>
 		<div class="connect-with-us" style="border-bottom:1px solid #ccc;margin-bottom:5px;padding-bottom:5px">
-			<div class="row">
-				<div class="col-md-8 ui-footer-col-first" style="margin-top:5px;">
-					Kết nối với chúng tôi        				
-					<span id="footer-sociality-share">
-						<a target="_blank" title="Connect with us on facebook" href="https://facebook.com/saigonsao" class="facebook">Facebook</a>
-						<a target="_blank" title="Connect with us on twitter" href="https://twitter.com/saigonsao" class="twitter">Twitter</a>
-						<a target="_blank" title="Connect with us on youtube" href="https://youtube.com/saigonsao" class="youtube">Youtube</a>
-						<a target="_blank" title="Connect with us on google plus" href="https://plus.google.com/+saigonsao" class="plus">Google Plus</a>
-					</span>
-				</div>
-				<div class="col-md-4">
-					<div class="input-group" style="">
-						<input type="text" class="form-control" placeholder="Đăng ký nhận tin (Nhập email của bạn)">
-						<span class="input-group-addon label-danger twhite "><a style="color:white;font-weight:bolder;" onmouseover="this.style.textDecoration='none'" href="#">Send</a></span>
-					</div>
-				</div>
-			</div>
+                    <div class="row" style="border-top: 1px solid #ccc;padding-top: 5px;margin-left: 0px;margin-right: 0px">
+                        <div class="col-md-8 ui-footer-col-first" style="margin-top:5px;">
+                            <!--Kết nối với chúng tôi        				
+                            <span id="footer-sociality-share">
+                                    <a target="_blank" title="Connect with us on facebook" href="https://facebook.com/saigonsao" class="facebook">Facebook</a>
+                                    <a target="_blank" title="Connect with us on twitter" href="https://twitter.com/saigonsao" class="twitter">Twitter</a>
+                                    <a target="_blank" title="Connect with us on youtube" href="https://youtube.com/saigonsao" class="youtube">Youtube</a>
+                                    <a target="_blank" title="Connect with us on google plus" href="https://plus.google.com/+saigonsao" class="plus">Google Plus</a>
+                            </span>-->
+                        </div>
+                        <div class="col-md-4">
+                                <div class="input-group" style="">
+                                        <input type="text" class="form-control" placeholder="Đăng ký nhận tin (Nhập email của bạn)">
+                                        <span class="input-group-addon label-danger twhite "><a style="color:white;font-weight:bolder;" onmouseover="this.style.textDecoration='none'" href="#">Gửi</a></span>
+                                </div>
+                        </div>
+                    </div>
 		</div>
 		<div class="foot" style="">
 			<div class="row">
@@ -116,7 +114,7 @@
 					<img  src="http://sstatic1.histats.com/0.gif?2742477&101" alt="free web tracker" border="0">
 				</div>
 				<div class="col-md-9" style="border-top:1px solid #ccc;text-align:right;font-weight:bolder;padding-top:5px;">
-					Thiết kế bởi : Mrs.Loren - Copyright &copy; 2013 - 2014 : CÔNG TY CỔ PHẦN SÀI GÒN SAO
+					Thiết kế bởi : Ms. Thu Linh - Copyright &copy; Được phát triển bởi CÔNG TY CỔ PHẦN SÀI GÒN SAO
 				</div>
 			</div>			
 		</div>

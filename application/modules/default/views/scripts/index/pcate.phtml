@@ -22,14 +22,14 @@
 									</a>       
 								</div>
 								<div class="news-content">
-									<h6><a style="color:red;font-weight:bolder;" href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>"><?=$row->product_name?></a></h6>
+									<h6><a style="color:red;font-weight:bolder;font-size: 17px" href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>"><?=$row->product_name?></a></h6>
 									<?php if($row->prod_price_status == 1){?>
 										<h6><a style="color:black;" href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>">Giá: <?= number_format($row->product_price, 0, ".", ",")?></a></h6>
 									<?}else{?>
 										<h6></br><a style="color:black;" href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>"> </a></h6>
 									<?}?>
 									<a href="<?=$this->baseUrl("/{$row->pcate_alias}/{$row->product_alias}/")?>" class="btn btn-sm btn-primary bolder">Chi tiết</a>
-									<a class="btn btn-sm btn-danger bolder" rel="331" href="<?=$this->baseUrl("/gio-hang")."?act=add&id={$row->product_id}"?>"><i class="fa fa-plus"></i> Giỏ hàng</a>
+									<a class="btn btn-sm btn-success bolder" rel="331" href="<?=$this->baseUrl("/gio-hang")."?act=add&id={$row->product_id}"?>"><i class="fa fa-plus"></i>+ Giỏ hàng</a>
 								</div>  
 								<div class="clear"></div>
 							</div>  

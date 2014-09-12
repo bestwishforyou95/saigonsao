@@ -1,0 +1,26 @@
+<?php
+    $model = new Application_Model_DbTable_Config();
+    $configF = $model->getConfigFace();
+?>
+<?php if(isset($configF['facebook']) && $configF['facebook'] != ""){?>
+<div class="side-bar" style="margin-bottom: 10px">
+		<h2>Kết nối với chúng tôi</h2>
+		<div class="connect-with-us" style="margin-bottom:5px;padding-bottom:5px">
+                    <div class="row">
+                        <a style="margin-left: 56px; margin-right: 20px" href="ymsgr:sendim?saigonsao_hcm" mce_href="ymsgr:sendim?saigonsao_hcm" border="0">
+                            <img style="margin-top: 7px;margin-bottom: -20px;" src="<?=$this->baseUrl("/css/images/yahoo.png")?>" width="30" height="40"></br>
+                        </a><span style="font-size: 16px;float: right;margin-top: -10px;margin-right: 127px;">Yahoo</span></br>
+                        <span id="footer-sociality-share">
+                            <a target="_blank" title="Connect with us on youtube" href="https://youtube.com/saigonsao" class="youtube">Youtube</a> <span style="font-size: 16px">Youtube</span></br>
+                            <a target="_blank" title="Connect with us on facebook" href="https://www.facebook.com/pages/C%C3%B4ng-ty-CP-S%C3%A0i-G%C3%B2n-Sao/1389547954617581" class="facebook">Facebook</a> <span style="font-size: 16px">Facebook</span></br>
+                            <a target="_blank" title="Connect with us on google plus" href="https://plus.google.com/+saigonsao" class="plus">Google Plus</a> <span style="font-size: 16px">Google Plus</span></br>
+                            <a target="_blank" title="Connect with us on twitter" href="https://twitter.com/saigonsao" class="twitter">Twitter</a> <span style="font-size: 16px">Twitter</span></br>
+                            <a target="_blank" title="Connect with us on twitter" href="http://me.zing.vn/u/bestwishforyou9515" class="zing"></a> <span style="font-size: 16px">Zing</span></br>
+                        </span>
+                        <a style="margin-left: 60px; margin-right: 20px" href="Skype:bestwishforyou95?chat"> 
+                            <img src="http://mystatus.skype.com/mediumicon/bestwishforyou95" mce_href="Skype:bestwishforyou95?chat" width="30px">
+                        </a> <span style="font-size: 16px">Skype</span></br>
+                    </div>
+		</div>
+	</div>
+<?php }?>

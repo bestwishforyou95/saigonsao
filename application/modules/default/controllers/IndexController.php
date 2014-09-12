@@ -75,7 +75,7 @@ class Default_IndexController extends Zend_Controller_Action {
             $pagination = new Zend_Paginator($adapter);
             $page = $this->_request->getParam("page", 1);
             $pagination->setCurrentPageNumber($page);
-            $pagination->setItemCountPerPage(12);
+            $pagination->setItemCountPerPage(16);
             $this->view->datas = $pagination;
         }
     }
@@ -553,6 +553,12 @@ class Default_IndexController extends Zend_Controller_Action {
             }
             $cart->emtyCart();
         }
+    }
+    public function customersAction() {
+        $this->view->pname = "Khách hàng";
+        $model = new Application_Model_DbTable_Articles();
+        $datas = $model->getSlideShow(null,"Slide-footer");
+        $this->view->datas = $datas;
     }
 
 }
